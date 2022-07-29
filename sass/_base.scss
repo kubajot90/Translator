@@ -4,3 +4,19 @@
     box-sizing: border-box;
     scroll-behavior: smooth;
 }
+
+.container {
+    width: 100%;
+    max-width: $max-width;
+    margin: 66.66px auto 0 auto;    
+}
+
+.line {
+    position: absolute;
+    top: 162px;
+    left: 0;
+    width: 100%;
+    height: .5px;
+    background-color: $main-border-color;
+    z-index: -1;
+}
