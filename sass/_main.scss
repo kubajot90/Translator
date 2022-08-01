@@ -62,6 +62,7 @@
     }
     
     .swap-lang__button {
+        position: relative;
         padding: 0 4px;
         cursor: pointer;
 
@@ -118,20 +119,24 @@
             right: 0;
             @include main-panel;
 
-            .main__panel-star-icon {
+            .main__panel-star-box {
                 position: absolute;
                 top: 0;
                 right: 0;
-                font-size: 1.6rem;
-                color: $main-font-color;
-                margin: 16px 13px;
-                padding: 7px;
-                cursor: pointer;
-                &:hover {
-                    
-                    background-color: rgba(237, 237, 237, 0.505);
-                    border-radius: 50%;
+
+                .main__panel-star-icon {
+                    font-size: 1.6rem;
+                    color: $main-font-color;
+                    margin: 16px 13px;
+                    padding: 7px;
+                    cursor: pointer;
+                    &:hover {
+                        
+                        background-color: rgba(237, 237, 237, 0.505);
+                        border-radius: 50%;
+                    }
                 }
+              
             }
 
             .main__textarea-right::placeholder {
@@ -162,6 +167,7 @@
         }
         
         .footer__icon-keboard-box {
+            position: relative;
             margin-right: 8px;
 
             .footer__icon-keyboard {
@@ -191,9 +197,34 @@
                 
             }
         }
-        
-       
-        
+    }
+
+    .tooltip {
+        display: none;
+        position: absolute;
+        bottom: -30px;
+        // left: 0;
+        right: 0;
+        padding: 5px 7px;
+        white-space: nowrap;
+        background-color: #57595e;
+        font-size: .8rem;
+        color: white;
+        border-radius: 4px;
+        z-index: 2;
+    }
+
+    .tooltip-star {
+        right: 15px;
+        bottom: -17px;
+    }
+
+    .tooltip-copy {
+        bottom: -35px;
+    }
+
+    .tooltip--show {
+        display: block;
     }
 }
 
