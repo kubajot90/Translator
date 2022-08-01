@@ -10,8 +10,10 @@ button {
     background-color: transparent;
 }
 
-input {
+textarea {
     all: unset;
+    word-wrap: break-word;
+    
   }
 
 .container {

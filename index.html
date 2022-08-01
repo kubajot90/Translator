@@ -69,32 +69,47 @@
             </button>
 
             <div class="main__header-right">
-                <button class="main__button-lang">ANGIELSKI</button>
+                <button class="main__button-lang main__button-lang--active">ANGIELSKI</button>
                 <button class="main__button-lang">POLSKI</button>
                 <button class="main__button-lang">NIEMIECKI</button>
                 <button class="main__button-lang-expand">
                     <span class="material-symbols-outlined expand-icon">
                         expand_more
-                        </span>
+                    </span>
                 </button>
             </div>
             </div>
 
             <div class="main__panel">
                 <div class="main__panel-left">
-                    <input type="text" class="main__input-left main__input">
+                    <textarea maxlength="5000" name="" id="" cols="30" rows="10" class="main__textarea-left main__textarea" ></textarea>
+                    <span class="material-symbols-outlined main__panel-x-mark">
+                        close
+                        </span>
                 </div>
                 <div class="main__panel-right">
-                    <input type="text" placeholder="Tłumaczenie" class="main__input-right main__input">
+                    <textarea maxlength="5000" name="" id="" cols="30" rows="10" class="main__textarea-right main__textarea" placeholder="Tłumaczenie"></textarea>
+                    <span class="material-symbols-outlined main__panel-star-icon">
+                        grade
+                        </span>
                 </div>
             </div>
 
             <div class="main__footer">
                 <div class="main__footer-left">
-                    <img src="./image/keyboard-icon.png" alt="keyboard" class="footer__icon-keyboard">
+                    <span class="footer-counter">1 / 5 000</span>
+                    <div class="footer__icon-keboard-box">
+                       <img src="./image/keyboard-icon.png" alt="keyboard" class="footer__icon-keyboard"> 
+                    </div>
+                    
+                    <span class="material-symbols-outlined main__footer-arrow">
+                        arrow_drop_down
+                        </span>
                 </div>
                 <div class="main__footer-right">
-                    
+                    <span class="material-symbols-outlined main__footer-copy-icon">
+                        content_copy
+                        </span>
                 </div>
                     
             </div>
