@@ -8,6 +8,7 @@
     padding: 7px;
     background-color: #fff;
     border-bottom: 1px solid $main-border-color;
+    z-index:1;
    
     .navigation__menu-icon-box {
         position: relative;
@@ -44,6 +45,7 @@
 
     .navigation__logo-box {
         display: flex;
+        cursor: pointer;
 
         .navigation__logo-image {
             height: 24px;

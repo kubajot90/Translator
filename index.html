@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="icon" href="./image/Google_Translate_logo.svg">
+
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,7 +12,7 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&display=swap" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&family=Roboto:wght@400;500&display=swap" rel="stylesheet"> 
 
     <link rel="stylesheet" href="./sass/css/style.css">
 </head>
@@ -47,8 +49,73 @@
                 Strony internetowe</button>
         </div>
         <main class="main">
+            <div class="main__header">
+            <div class="main__header-left">
+                <button class="main__button-lang">WYKRYJ JĘZYK</button>
+                <button class="main__button-lang main__button-lang--active">POLSKI</button>
+                <button class="main__button-lang">ANGIELSKI</button>
+                <button class="main__button-lang">NIEMIECKI</button>
+                <button class="main__button-lang-expand">
+                    <span class="material-symbols-outlined expand-icon">
+                        expand_more
+                        </span>
+                </button>
+            </div>
 
-        </main>   
+            <button class="swap-lang__button">
+                <span class="material-symbols-outlined swap-lang__icon">
+                    sync_alt
+                </span>
+            </button>
+
+            <div class="main__header-right">
+                <button class="main__button-lang">ANGIELSKI</button>
+                <button class="main__button-lang">POLSKI</button>
+                <button class="main__button-lang">NIEMIECKI</button>
+                <button class="main__button-lang-expand">
+                    <span class="material-symbols-outlined expand-icon">
+                        expand_more
+                        </span>
+                </button>
+            </div>
+            </div>
+
+            <div class="main__panel">
+                <div class="main__panel-left">
+                    <input type="text" class="main__input-left main__input">
+                </div>
+                <div class="main__panel-right">
+                    <input type="text" placeholder="Tłumaczenie" class="main__input-right main__input">
+                </div>
+            </div>
+
+            <div class="main__footer">
+                <div class="main__footer-left">
+                    <img src="./image/keyboard-icon.png" alt="keyboard" class="footer__icon-keyboard">
+                </div>
+                <div class="main__footer-right">
+                    
+                </div>
+                    
+            </div>
+        </main>  
+        <footer class="footer">
+            
+                <button class="footer__icon-box">
+                    <span class="material-symbols-outlined footer__icon">
+                        history
+                    </span>
+                    <span class="footer__icon-subtitle">Historia</span>
+                </button>
+                
+                <button class="footer__icon-box">
+                    <span class="material-symbols-outlined footer__icon">
+                        star
+                        </span>
+                    <span class="footer__icon-subtitle">Zapisane</span>
+                </button>
+           
+        </footer> 
     </div>
     
     

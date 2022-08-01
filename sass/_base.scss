@@ -5,6 +5,15 @@
     scroll-behavior: smooth;
 }
 
+button {
+    border: none;
+    background-color: transparent;
+}
+
+input {
+    all: unset;
+  }
+
 .container {
     width: 100%;
     max-width: $max-width;

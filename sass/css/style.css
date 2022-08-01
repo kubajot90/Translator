@@ -1,4 +1,5 @@
-html, body {
+html, body, button {
+  color: #5f6368;
   font-size: 16px;
   font-family: "DM Sans", sans-serif;
   font-weight: 500;
@@ -10,6 +11,15 @@ html, body {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   scroll-behavior: smooth;
+}
+
+button {
+  border: none;
+  background-color: transparent;
+}
+
+input {
+  all: unset;
 }
 
 .container {
@@ -29,12 +39,126 @@ html, body {
 }
 
 .main {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  position: relative;
   width: 100%;
   min-height: 220px;
   border-radius: 9px;
   -webkit-box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.37);
           box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.37);
   background-color: #fff;
+}
+.main .main__header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  top: 0;
+  border-bottom: 1px solid rgb(221, 221, 221);
+}
+.main .main__header-left, .main .main__header-right {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 50%;
+}
+.main .main__button-lang {
+  padding: 17px 16px 14px 16px;
+  font-size: 14px;
+  letter-spacing: 0.3px;
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  border-bottom: 2px solid transparent;
+}
+.main .main__button-lang--active {
+  border-bottom: 2px solid #1967d2;
+  color: #1967d2;
+}
+.main .main__button-lang-expand .expand-icon {
+  font-size: 1.7rem;
+  margin-top: 3px;
+  margin-left: 34px;
+}
+.main .swap-lang__button {
+  padding: 0 16px;
+}
+.main .swap-lang__button .swap-lang__icon {
+  font-size: 1rem;
+  font-weight: bold;
+}
+.main .main__panel {
+  position: relative;
+  width: 100%;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+}
+.main .main__panel .main__input {
+  width: 100%;
+}
+.main .main__panel .main__panel-left {
+  left: 0;
+  border-right: 1px solid rgb(221, 221, 221);
+  position: absolute;
+  padding: 20px 25px;
+  top: 0;
+  width: 50%;
+  height: 100%;
+  font-size: 24px;
+  font-weight: 400;
+  color: #3c4043;
+  font-family: "Roboto";
+}
+.main .main__panel .main__panel-right {
+  right: 0;
+  position: absolute;
+  padding: 20px 25px;
+  top: 0;
+  width: 50%;
+  height: 100%;
+  font-size: 24px;
+  font-weight: 400;
+  color: #3c4043;
+  font-family: "Roboto";
+}
+.main .main__panel .main__panel-right .main__input-right::-webkit-input-placeholder {
+  opacity: 0.8;
+}
+.main .main__panel .main__panel-right .main__input-right::-moz-placeholder {
+  opacity: 0.8;
+}
+.main .main__panel .main__panel-right .main__input-right:-ms-input-placeholder {
+  opacity: 0.8;
+}
+.main .main__panel .main__panel-right .main__input-right::-ms-input-placeholder {
+  opacity: 0.8;
+}
+.main .main__panel .main__panel-right .main__input-right::placeholder {
+  opacity: 0.8;
+}
+.main .main__footer .main__footer-left {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  padding: 20px 25px;
+  width: 50%;
+  border-right: 1px solid rgb(221, 221, 221);
+}
+.main .main__footer .footer__icon-keyboard {
+  opacity: 0.6;
+  width: 18px;
 }
 
 .navigation {
@@ -51,6 +175,7 @@ html, body {
   padding: 7px;
   background-color: #fff;
   border-bottom: 1px solid rgb(221, 221, 221);
+  z-index: 1;
 }
 .navigation .navigation__menu-icon-box {
   position: relative;
@@ -100,6 +225,7 @@ html, body {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  cursor: pointer;
 }
 .navigation .navigation__logo-box .navigation__logo-image {
   height: 24px;
@@ -119,13 +245,10 @@ html, body {
       -ms-flex-align: start;
           align-items: flex-start;
   margin: 14px 2px 15px 2px;
-  background-color: transparent;
   border: solid 1px rgb(221, 221, 221);
   border-radius: 4px;
   color: #1967d2;
   font-size: 0.9rem;
-  font-family: "DM Sans", sans-serif;
-  font-weight: 500;
   padding: 7px 13px;
   cursor: pointer;
   -webkit-transition: 0.1s;
@@ -141,4 +264,34 @@ html, body {
 }
 .header__buttons-box .button--active {
   background-color: rgba(25, 102, 210, 0.1176470588);
+}
+
+.footer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  width: 100%;
+}
+.footer .footer__icon-box {
+  border-radius: 50%;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+.footer .footer__icon-box .footer__icon {
+  display: block;
+  font-size: 2.2rem;
+  font-weight: bold;
+  padding: 18px;
+  border: solid 1px rgb(221, 221, 221);
+  border-radius: 50%;
+  background-color: transparent;
+  color: #757575;
+  margin: 89px 30px 10px 30px;
+}
+.footer .footer__icon-subtitle {
+  font-size: 0.9rem;
 }/*# sourceMappingURL=style.css.map */

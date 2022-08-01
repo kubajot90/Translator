@@ -1,4 +1,5 @@
-html, body {
+html, body, button {
+    color: $main-font-color;
     font-size: $base-font-size;
     font-family: 'DM Sans', sans-serif;
     font-weight: 500;

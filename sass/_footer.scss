@@ -1,0 +1,29 @@
+.footer {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+
+    .footer__icon-box {
+       border-radius: 50%;
+       border: none;
+       background-color: transparent;
+       cursor: pointer;
+
+        .footer__icon {
+            display: block;
+            font-size: 2.2rem;
+            font-weight: bold;
+            padding: 18px;
+            border: solid 1px $main-border-color;
+            border-radius: 50%;
+            background-color: transparent;
+            color: #757575;;
+            margin: 89px 30px 10px 30px;
+            
+        }
+
+        }
+        .footer__icon-subtitle {
+            font-size: .9rem;
+        }
+}
