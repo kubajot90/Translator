@@ -83,13 +83,18 @@
 
             <div class="main__panel">
                 <div class="main__panel-left">
-                    <textarea maxlength="5000" name="" id="" cols="30" rows="10" class="main__textarea-left main__textarea" ></textarea>
+                    <textarea maxlength="5000" name="" id="" cols="30" rows="10" class="main__textarea-left main__textarea" data-textarea-left></textarea>
                     <span class="material-symbols-outlined main__panel-x-mark">
                         close
                         </span>
                 </div>
                 <div class="main__panel-right">
-                    <textarea maxlength="5000" name="" id="" cols="30" rows="10" class="main__textarea-right main__textarea" placeholder="Tłumaczenie"></textarea>
+                    <div  class="main__textarea-right main__textarea" >
+                        <span data-textarea-right>
+                            <span class="textarea__placeholder">Tłumaczenie</span>
+                        </span>
+                        <span class="loader textarea__placeholder" data-loader>...</span>
+                    </div>
                     <div class="main__panel-star-box">
                         <span class="material-symbols-outlined main__panel-star-icon">
                         grade

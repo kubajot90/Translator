@@ -189,20 +189,12 @@ textarea {
   background-color: rgba(237, 237, 237, 0.505);
   border-radius: 50%;
 }
-.main .main__panel .main__panel-right .main__textarea-right::-webkit-input-placeholder {
+.main .main__panel .main__panel-right .textarea__placeholder {
   opacity: 0.8;
 }
-.main .main__panel .main__panel-right .main__textarea-right::-moz-placeholder {
-  opacity: 0.8;
-}
-.main .main__panel .main__panel-right .main__textarea-right:-ms-input-placeholder {
-  opacity: 0.8;
-}
-.main .main__panel .main__panel-right .main__textarea-right::-ms-input-placeholder {
-  opacity: 0.8;
-}
-.main .main__panel .main__panel-right .main__textarea-right::placeholder {
-  opacity: 0.8;
+.main .main__panel .main__panel-right .loader {
+  margin-left: -4px;
+  display: none;
 }
 .main .main__footer {
   position: relative;
