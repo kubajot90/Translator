@@ -55,8 +55,9 @@
                 <button class="main__button-lang main__button-lang--active">POLSKI</button>
                 <button class="main__button-lang">ANGIELSKI</button>
                 <button class="main__button-lang">NIEMIECKI</button>
-                <button class="main__button-lang-expand">
-                    <span class="material-symbols-outlined expand-icon">
+                <button class="main__button-lang-expand" >
+                    <span class="expand-icon-background" data-expand-icon-background></span>
+                    <span class="material-symbols-outlined expand-icon" data-button-lang-expand>
                         expand_more
                         </span>
                 </button>
@@ -74,14 +75,19 @@
                 <button class="main__button-lang">POLSKI</button>
                 <button class="main__button-lang">NIEMIECKI</button>
                 <button class="main__button-lang-expand">
-                    <span class="material-symbols-outlined expand-icon">
+                    <span class="expand-icon-background" data-expand-icon-background></span>
+                    <span class="material-symbols-outlined expand-icon"  data-button-lang-expand>
                         expand_more
                     </span>
                 </button>
             </div>
             </div>
 
-            <div class="main__panel">
+            <div class="main__lang-panel hide" data-lang-panel>
+
+            </div>
+
+            <div class="main__panel" data-main-panel>
                 <div class="main__panel-left">
                     <textarea maxlength="5000" name="" id="" cols="30" rows="10" class="main__textarea-left main__textarea" data-textarea-left></textarea>
                     <span class="material-symbols-outlined main__panel-x-mark">
@@ -104,7 +110,7 @@
                 </div>
             </div>
 
-            <div class="main__footer">
+            <div class="main__footer" data-main-footer>
                 <div class="main__footer-left">
                     <span class="footer-counter">1 / 5 000</span>
                     <div class="footer__icon-keboard-box">
@@ -126,7 +132,7 @@
                     
             </div>
         </main>  
-        <footer class="footer">
+        <footer class="footer" data-footer>
             
                 <button class="footer__icon-box">
                     <span class="material-symbols-outlined footer__icon">

@@ -22,6 +22,7 @@ export class Translator {
     // console.log(isoLangs.pl);
     this.htmlElements();
     this.eventlisteners();
+    this.textareaLeftElm.value = "";
   }
 
   htmlElements() {
@@ -34,7 +35,6 @@ export class Translator {
     this.textareaLeftElm.addEventListener("input", () => {
       this.setApiEndpoint();
       this.delayFetch(this.API__ENDPOINT);
-      // this.resetTextarea();
     });
 
     window.addEventListener("keydown", (e) => {
