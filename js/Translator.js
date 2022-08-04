@@ -1,15 +1,19 @@
 import { LanguagePanel } from "./LanguagePanel.js";
+import { languagesList } from "./languagesList.js";
 
 export class Translator {
   constructor() {
     this.textareaLeftElm = null;
     this.textareaRightElm = null;
     this.loaderElm = null;
+    this.detectButtonElm = null;
+    this.detectButtonAfterElm = null;
 
     this.fetchTimeout = null;
 
     this.firstLanguage = null;
     this.secondLanguage = null;
+    this.detectedLanguage = null;
     this.textToTranslate = null;
 
     this.API = "https://api.mymemory.translated.net";
@@ -31,12 +35,17 @@ export class Translator {
     this.textareaLeftElm = document.querySelector("[data-textarea-left]");
     this.textareaRightElm = document.querySelector("[data-textarea-right]");
     this.loaderElm = document.querySelector("[data-loader]");
+    this.detectButtonElm = document.querySelector("[data-detect-lang]");
+    this.detectButtonAfterElm = document.querySelector(
+      "[data-detect-lang-after]"
+    );
   }
 
   eventlisteners() {
     this.textareaLeftElm.addEventListener("input", () => {
       this.setApiEndpoint();
       this.delayFetch(this.API__ENDPOINT);
+      // this.changeDetectButtonText();
     });
 
     this.textareaLeftElm.addEventListener("keydown", (e) => {
@@ -60,7 +69,18 @@ export class Translator {
       const response = await fetch(endpoint);
       const parsedResponse = await response.json();
       console.log(parsedResponse);
-      this.displayText(parsedResponse.responseData.translatedText);
+
+      const detectedLanguage = parsedResponse.responseData.detectedLanguage
+        ? parsedResponse.responseData.detectedLanguage
+        : this.resetButtonDetect();
+
+      this.detectedLanguage =
+        languagesList[detectedLanguage].name.toUpperCase();
+
+      parsedResponse.responseStatus === "403"
+        ? this.displayText(this.textToTranslate)
+        : this.displayText(parsedResponse.responseData.translatedText);
+
       this.loaderHide();
     } catch (err) {
       console.log("ERROR");
@@ -77,19 +97,33 @@ export class Translator {
   }
 
   displayText(text) {
-    console.log(text);
     if (text === "!" || text.slice(-2) === "!#") {
       this.textareaRightElm.textContent = "";
     } else {
       this.textareaRightElm.textContent = text;
     }
+    this.changeDetectButtonText();
     this.resetTextarea();
+  }
+
+  changeDetectButtonText() {
+    if (this.firstLanguage === "Autodetect") {
+      this.detectButtonElm.classList.add("hide");
+      this.detectButtonAfterElm.style.display = "block";
+      this.detectButtonAfterElm.textContent = `WYKRYTO:${this.detectedLanguage}`;
+    }
+  }
+
+  resetButtonDetect() {
+    this.detectButtonElm.classList.remove("hide");
+    this.detectButtonAfterElm.style.display = "none";
   }
 
   resetTextarea() {
     if (this.textareaLeftElm.value === "") {
       this.textareaRightElm.innerHTML =
         '<span class="textarea__placeholder">Tłumaczenie</span>';
+      this.resetButtonDetect();
     }
   }
 
