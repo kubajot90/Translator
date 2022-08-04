@@ -1,9 +1,10 @@
+import { LanguagePanel } from "./LanguagePanel.js";
+
 export class Translator {
   constructor() {
     this.textareaLeftElm = null;
     this.textareaRightElm = null;
     this.loaderElm = null;
-    this.languageListItems = null;
 
     this.fetchTimeout = null;
 
@@ -15,6 +16,9 @@ export class Translator {
     this.API__ENDPOINT = null;
 
     this.isSpaceClick = false;
+
+    this.languagePanel = new LanguagePanel();
+    this.languagePanel.init();
   }
 
   init() {
@@ -27,7 +31,6 @@ export class Translator {
     this.textareaLeftElm = document.querySelector("[data-textarea-left]");
     this.textareaRightElm = document.querySelector("[data-textarea-right]");
     this.loaderElm = document.querySelector("[data-loader]");
-    this.languageListItems = document.querySelectorAll("[data-language-item]");
   }
 
   eventlisteners() {
@@ -39,20 +42,12 @@ export class Translator {
     this.textareaLeftElm.addEventListener("keydown", (e) => {
       if (e.code === "Space") this.isSpaceClick = true;
     });
-
-    this.languageListItems.forEach((item) => {
-      item.addEventListener("click", (e) => {
-        console.log(e.target.dataset.code);
-        this.activeItem(item);
-      });
-    });
   }
 
   delayFetch(endpoint) {
     clearTimeout(this.fetchTimeout);
     if (this.isSpaceClick) {
       this.fetchData(endpoint);
-      console.log("loader");
       this.isSpaceClick = false;
     } else {
       this.fetchTimeout = setTimeout(() => this.fetchData(endpoint), 500);
@@ -64,6 +59,7 @@ export class Translator {
     try {
       const response = await fetch(endpoint);
       const parsedResponse = await response.json();
+      console.log(parsedResponse);
       this.displayText(parsedResponse.responseData.translatedText);
       this.loaderHide();
     } catch (err) {
@@ -74,8 +70,8 @@ export class Translator {
 
   setApiEndpoint() {
     this.textToTranslate = this.textareaLeftElm.value;
-    this.firstLanguage = "pl";
-    this.secondLanguage = "en";
+    this.firstLanguage = "Autodetect";
+    this.secondLanguage = "pl";
 
     this.API__ENDPOINT = `${this.API}/get?q=${this.textToTranslate}!&langpair=${this.firstLanguage}|${this.secondLanguage}`;
   }
@@ -103,9 +99,5 @@ export class Translator {
 
   loaderHide() {
     this.loaderElm.style.display = "none";
-  }
-
-  activeItem(item) {
-    item.classList.toggle("list__item--active");
   }
 }

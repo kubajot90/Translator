@@ -251,7 +251,7 @@ input {
   right: 55px;
   font-size: 1.3rem;
   position: absolute;
-  color: #5f6368;
+  color: inherit;
 }
 .main .main__lang-panel .main__lang-list .list__item--active {
   background-color: rgba(25, 102, 210, 0.1176470588);
