@@ -1,10 +1,9 @@
-import { isoLangs } from "./languagesList.js";
-
 export class Translator {
   constructor() {
     this.textareaLeftElm = null;
     this.textareaRightElm = null;
     this.loaderElm = null;
+    this.languageListItems = null;
 
     this.fetchTimeout = null;
 
@@ -19,7 +18,6 @@ export class Translator {
   }
 
   init() {
-    // console.log(isoLangs.pl);
     this.htmlElements();
     this.eventlisteners();
     this.textareaLeftElm.value = "";
@@ -29,6 +27,7 @@ export class Translator {
     this.textareaLeftElm = document.querySelector("[data-textarea-left]");
     this.textareaRightElm = document.querySelector("[data-textarea-right]");
     this.loaderElm = document.querySelector("[data-loader]");
+    this.languageListItems = document.querySelectorAll("[data-language-item]");
   }
 
   eventlisteners() {
@@ -37,8 +36,15 @@ export class Translator {
       this.delayFetch(this.API__ENDPOINT);
     });
 
-    window.addEventListener("keydown", (e) => {
+    this.textareaLeftElm.addEventListener("keydown", (e) => {
       if (e.code === "Space") this.isSpaceClick = true;
+    });
+
+    this.languageListItems.forEach((item) => {
+      item.addEventListener("click", (e) => {
+        console.log(e.target.dataset.code);
+        this.activeItem(item);
+      });
     });
   }
 
@@ -97,5 +103,9 @@ export class Translator {
 
   loaderHide() {
     this.loaderElm.style.display = "none";
+  }
+
+  activeItem(item) {
+    item.classList.toggle("list__item--active");
   }
 }

@@ -23,6 +23,10 @@ textarea {
   word-wrap: break-word;
 }
 
+input {
+  all: unset;
+}
+
 .container {
   width: 100%;
   max-width: 1185px;
@@ -152,10 +156,107 @@ textarea {
 }
 .main .main__lang-panel {
   display: block;
-  top: 0;
-  left: 0;
   width: 100%;
-  height: 400px;
+}
+.main .main__lang-panel .main__search {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  width: 100%;
+  height: 56px;
+  border-bottom: 1px solid rgb(221, 221, 221);
+}
+.main .main__lang-panel .main__search .main__search-arrow-icon {
+  font-weight: bold;
+  font-size: 1.4rem;
+  padding: 9px;
+  margin-left: 3px;
+  margin-right: 21px;
+  cursor: pointer;
+}
+.main .main__lang-panel .main__search .main__search-arrow-icon:hover {
+  background-color: rgba(237, 237, 237, 0.505);
+  border-radius: 50%;
+}
+.main .main__lang-panel .main__search .main__search-input {
+  font-size: 1rem;
+  color: black;
+  font-weight: 300;
+  font-family: "Roboto";
+}
+.main .main__lang-panel .main__search .main__search-input::-webkit-input-placeholder {
+  font-size: 1rem;
+  font-weight: 400;
+  color: #5f6368;
+  opacity: 1;
+}
+.main .main__lang-panel .main__search .main__search-input::-moz-placeholder {
+  font-size: 1rem;
+  font-weight: 400;
+  color: #5f6368;
+  opacity: 1;
+}
+.main .main__lang-panel .main__search .main__search-input:-ms-input-placeholder {
+  font-size: 1rem;
+  font-weight: 400;
+  color: #5f6368;
+  opacity: 1;
+}
+.main .main__lang-panel .main__search .main__search-input::-ms-input-placeholder {
+  font-size: 1rem;
+  font-weight: 400;
+  color: #5f6368;
+  opacity: 1;
+}
+.main .main__lang-panel .main__search .main__search-input::placeholder {
+  font-size: 1rem;
+  font-weight: 400;
+  color: #5f6368;
+  opacity: 1;
+}
+.main .main__lang-panel .main__lang-list {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  height: 975px;
+  padding: 9px 0px 9px 25px;
+}
+.main .main__lang-panel .main__lang-list .list__item {
+  list-style-type: none;
+  position: relative;
+  padding: 6px 10px 8px 36px;
+  font-size: 0.87rem;
+  font-weight: 400;
+  color: rgba(0, 0, 0, 0.87);
+  font-family: "Roboto";
+  cursor: pointer;
+}
+.main .main__lang-panel .main__lang-list .list__item:hover {
+  background-color: rgb(237, 237, 237);
+}
+.main .main__lang-panel .main__lang-list .list__item .detect__language-icon {
+  top: 4px;
+  right: 55px;
+  font-size: 1.3rem;
+  position: absolute;
+  color: #5f6368;
+}
+.main .main__lang-panel .main__lang-list .list__item--active {
+  background-color: rgba(25, 102, 210, 0.1176470588);
+  color: #1967d2;
+  font-weight: 500;
 }
 .main .main__panel {
   position: relative;

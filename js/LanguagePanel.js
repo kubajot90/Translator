@@ -1,3 +1,5 @@
+import { languagesList } from "./languagesList.js";
+
 export class LanguagePanel {
   constructor() {
     this.languagePanelElm = null;
@@ -6,6 +8,7 @@ export class LanguagePanel {
     this.mainFooterElm = null;
     this.footerElm = null;
     this.expandIconsBackgroundElm = null;
+    this.languagesListElm = null;
 
     this.isbuttonExpandclick = false;
   }
@@ -13,6 +16,7 @@ export class LanguagePanel {
   init() {
     this.htmlElements();
     this.eventlisteners();
+    this.createListItem();
   }
 
   htmlElements() {
@@ -20,6 +24,7 @@ export class LanguagePanel {
     this.mainPanelElm = document.querySelector("[data-main-panel]");
     this.mainFooterElm = document.querySelector("[data-main-footer]");
     this.footerElm = document.querySelector("[data-footer]");
+    this.languagesListElm = document.querySelector("[data-lang-list]");
 
     this.expandIconsBackgroundElm = document.querySelectorAll(
       "[data-expand-icon-background]"
@@ -36,12 +41,6 @@ export class LanguagePanel {
         this.buttonsAnimation(button, index);
       })
     );
-
-    // this.expandIconsBackgroundElm.forEach((element) => {
-    //   element.addEventListener("click", () =>
-    //     element.classList.toggle("expand-icon--click")
-    //   );
-    // });
   }
 
   togglePanelVisibility() {
@@ -69,5 +68,22 @@ export class LanguagePanel {
     const backgroudElm = this.expandIconsBackgroundElm[index];
     backgroudElm.classList.add("expand-icon--click");
     setTimeout(() => backgroudElm.classList.remove("expand-icon--click"), 300);
+  }
+
+  createListItem() {
+    for (const property in languagesList) {
+      const nameLowerCase = languagesList[property].name
+        .toLowerCase()
+        .replace(/,|;/gi, "")
+        .split(" ")[0];
+
+      const item = `<li class="list__item" data-code="${property}" data-language-item>${nameLowerCase}</li>`;
+
+      this.drawList(item);
+    }
+  }
+
+  drawList(item) {
+    this.languagesListElm.insertAdjacentHTML("beforeend", item);
   }
 }
