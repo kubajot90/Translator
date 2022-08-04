@@ -38,6 +38,11 @@
             }
     }
 
+   
+    .main__button-detect-lang-after {
+        display:none;
+    }
+
     .main__button-lang--active {
         border-bottom: 2px solid $secondary-font-color;
         color: $secondary-font-color;

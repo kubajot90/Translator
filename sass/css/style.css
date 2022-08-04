@@ -96,6 +96,9 @@ input {
   background-color: rgba(60, 64, 67, 0.0392156863);
   color: #3c4043;
 }
+.main .main__button-detect-lang-after {
+  display: none;
+}
 .main .main__button-lang--active {
   border-bottom: 2px solid #1967d2;
   color: #1967d2;
