@@ -89,6 +89,7 @@ input {
   font-family: "Roboto", sans-serif;
   font-weight: 500;
   border-bottom: 2px solid transparent;
+  cursor: pointer;
   -webkit-transition: 0.1s;
   transition: 0.1s;
 }
@@ -129,8 +130,8 @@ input {
   padding: 7px;
   border-radius: 50%;
   cursor: pointer;
-  -webkit-transition: linear all 0.1s 0.2s;
-  transition: linear all 0.1s 0.2s;
+  -webkit-transition: linear transform 0.1s 0.2s;
+  transition: linear transform 0.1s 0.2s;
 }
 .main .main__button-lang-expand .expand-icon:hover {
   background-color: rgba(237, 237, 237, 0.505);

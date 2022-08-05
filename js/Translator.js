@@ -51,6 +51,10 @@ export class Translator {
     this.textareaLeftElm.addEventListener("keydown", (e) => {
       if (e.code === "Space") this.isSpaceClick = true;
     });
+
+    this.detectButtonElm.addEventListener("click", () => {
+      this.isLanguageAutodetect = true;
+    });
   }
 
   delayFetch(endpoint) {
@@ -70,13 +74,14 @@ export class Translator {
       const parsedResponse = await response.json();
       console.log(parsedResponse);
 
-      const detectedLanguage = parsedResponse.responseData.detectedLanguage
-        ? parsedResponse.responseData.detectedLanguage
-        : this.resetButtonDetect();
+      if (this.languagePanel.isLanguageAutodetect) {
+        const detectedLanguage = parsedResponse.responseData.detectedLanguage
+          ? parsedResponse.responseData.detectedLanguage
+          : this.resetButtonDetect();
 
-      this.detectedLanguage =
-        languagesList[detectedLanguage].name.toUpperCase();
-
+        this.detectedLanguage =
+          languagesList[detectedLanguage].name.toUpperCase();
+      }
       parsedResponse.responseStatus === "403"
         ? this.displayText(this.textToTranslate)
         : this.displayText(parsedResponse.responseData.translatedText);
@@ -90,8 +95,12 @@ export class Translator {
 
   setApiEndpoint() {
     this.textToTranslate = this.textareaLeftElm.value;
-    this.firstLanguage = "Autodetect";
-    this.secondLanguage = "pl";
+    // this.firstLanguage = "Autodetect";
+    this.firstLanguage = this.languagePanel.isLanguageAutodetect
+      ? "Autodetect"
+      : this.languagePanel.currentLanguage.left;
+
+    this.secondLanguage = this.languagePanel.currentLanguage.right;
 
     this.API__ENDPOINT = `${this.API}/get?q=${this.textToTranslate}!&langpair=${this.firstLanguage}|${this.secondLanguage}`;
   }
@@ -100,7 +109,7 @@ export class Translator {
     if (text === "!" || text.slice(-2) === "!#") {
       this.textareaRightElm.textContent = "";
     } else {
-      this.textareaRightElm.textContent = text;
+      this.textareaRightElm.textContent = text.replace("!", "");
     }
     this.changeDetectButtonText();
     this.resetTextarea();

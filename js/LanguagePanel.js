@@ -9,23 +9,45 @@ export class LanguagePanel {
     this.footerElm = null;
     this.expandIconsBackgroundElm = null;
     this.languagesListElm = null;
-    this.languageListItems = null;
-    this.languageButtonsLeft = null;
-    this.languageButtonsRight = null;
+    this.languageListItemsElm = null;
+    this.languageButtonsLeftElm = null;
+    this.languageButtonsRightElm = null;
 
     this.isbuttonExpandclick = false;
+    this.isLanguageAutodetect = true;
+    this.languageExpandButtonleftClick = null;
 
-    this.buttonLanguages = ["pl", "en", "de"];
-    this.currentLanguage = this.buttonLanguages[0];
-    this.lastLanguage = this.buttonLanguages[1];
-    this.beforeLastLanguage = this.buttonLanguages[2];
+    // this.buttonLanguages = ["pl", "en", "de"];
+    // this.currentLanguage = this.buttonLanguages[0];
+    // this.lastLanguage = this.buttonLanguages[1];
+    // this.beforeLastLanguage = this.buttonLanguages[2];
+
+    this.buttonLanguages = {
+      left: ["pl", "en", "de"],
+      right: ["pl", "en", "de"],
+    };
+    this.currentLanguage = {
+      left: this.buttonLanguages.left[0],
+      right: this.buttonLanguages.right[0],
+    };
+
+    this.lastLanguage = {
+      left: this.buttonLanguages.right[1],
+      right: this.buttonLanguages.right[1],
+    };
+
+    this.beforeLastLanguage = {
+      left: this.buttonLanguages.left[2],
+      right: this.buttonLanguages.right[2],
+    };
   }
 
   init() {
     this.createListItem();
     this.htmlElements();
     this.eventlisteners();
-    this.buttonText();
+    this.buttonText(this.languageButtonsLeftElm, "left");
+    this.buttonText(this.languageButtonsRightElm, "right");
   }
 
   htmlElements() {
@@ -40,13 +62,15 @@ export class LanguagePanel {
     this.languageExpandButtonsElm = document.querySelectorAll(
       "[data-button-lang-expand]"
     );
-    this.languageListItems = document.querySelectorAll("[data-language-item]");
+    this.languageListItemsElm = document.querySelectorAll(
+      "[data-language-item]"
+    );
 
-    this.languageButtonsLeft = document.querySelectorAll(
+    this.languageButtonsLeftElm = document.querySelectorAll(
       "[data-buttons-lang-left]"
     );
 
-    this.languageButtonsRight = document.querySelectorAll(
+    this.languageButtonsRightElm = document.querySelectorAll(
       "[data-buttons-lang-right]"
     );
   }
@@ -56,65 +80,95 @@ export class LanguagePanel {
       button.addEventListener("click", () => {
         this.togglePanelVisibility();
         this.buttonsAnimation(button, index);
+        // if(index ===0) this.languageExpandButtonleftClick = true;
+        index
+          ? (this.languageExpandButtonleftClick = false)
+          : (this.languageExpandButtonleftClick = true);
       })
     );
 
-    this.languageListItems.forEach((item) => {
+    this.languageListItemsElm.forEach((item) => {
       item.addEventListener("click", (e) => {
         console.log(e.target.dataset.code);
         const languageCode = e.target.dataset.code;
         // const languageName = languagesList[languageCode].name;
-        this.activeItem(item);
-        this.changeLanguage(languageCode);
-        this.buttonText();
+        this.activeItemColor(item);
+        this.isLanguageAutodetect = false;
+
+        if (this.languageExpandButtonleftClick) {
+          this.changeLanguage(languageCode, "left");
+          this.buttonText(this.languageButtonsLeftElm, "left");
+        } else {
+          this.changeLanguage(languageCode, "right");
+          this.buttonText(this.languageButtonsRightElm, "right");
+        }
+
         this.togglePanelVisibility();
         this.isbuttonExpandclick = false;
         this.rotateButtonsBack();
       });
     });
 
-    this.languageButtonsLeft.forEach((button) => {
+    this.languageButtonsLeftElm.forEach((button) => {
       button.addEventListener("click", (e) => {
-        console.log(e.target.dataset.code);
-        if (this.isbuttonExpandclick) {
-          this.isbuttonExpandclick = false;
-          this.togglePanelVisibility();
-          this.rotateButtonsBack();
-        }
+        const languageCode = e.target.dataset.code;
+        this.changeLanguage(languageCode, "left");
+        this.isLanguageAutodetect = false;
+        this.checkButtonExpandClick();
+        // if (this.isbuttonExpandclick) {
+        //   this.isbuttonExpandclick = false;
+        //   this.togglePanelVisibility();
+        //   this.rotateButtonsBack();
+        // }
+      });
+    });
+
+    this.languageButtonsRightElm.forEach((button) => {
+      button.addEventListener("click", (e) => {
+        const languageCode = e.target.dataset.code;
+        this.changeLanguage(languageCode, "right");
+        this.checkButtonExpandClick();
+
+        // if (this.isbuttonExpandclick) {
+        //   this.isbuttonExpandclick = false;
+        //   this.togglePanelVisibility();
+        //   this.rotateButtonsBack();
+        // }
       });
     });
   }
 
-  // changeLanguage(languageName) {
+  checkButtonExpandClick() {
+    if (this.isbuttonExpandclick) {
+      this.isbuttonExpandclick = false;
+      this.togglePanelVisibility();
+      this.rotateButtonsBack();
+    }
+  }
+
+  // changeLanguage(languageCode) {
   //   const temporary = this.buttonLanguages[0];
-  //   this.buttonLanguages[0] = languageName;
+  //   this.buttonLanguages[0] = languageCode;
   //   this.buttonLanguages[2] = this.buttonLanguages[1];
   //   this.buttonLanguages[1] = temporary;
 
   //   this.setButtonLanguagesOrder();
   //   console.log(this.buttonLanguages);
   // }
+  changeLanguage(languageCode, buttonsSide) {
+    const temporary = this.buttonLanguages[buttonsSide][0];
+    this.buttonLanguages[buttonsSide][0] = languageCode;
+    this.buttonLanguages[buttonsSide][2] = this.buttonLanguages[buttonsSide][1];
+    this.buttonLanguages[buttonsSide][1] = temporary;
 
-  // setButtonLanguagesOrder() {
-  //   this.currentLanguage = this.buttonLanguages[0];
-  //   this.lastLanguage = this.buttonLanguages[1];
-  //   this.beforeLastLanguage = this.buttonLanguages[2];
-  // }
-
-  changeLanguage(languageCode) {
-    const temporary = this.buttonLanguages[0];
-    this.buttonLanguages[0] = languageCode;
-    this.buttonLanguages[2] = this.buttonLanguages[1];
-    this.buttonLanguages[1] = temporary;
-
-    this.setButtonLanguagesOrder();
+    this.setButtonLanguagesOrder(buttonsSide);
     console.log(this.buttonLanguages);
   }
 
-  setButtonLanguagesOrder() {
-    this.currentLanguage = this.buttonLanguages[0];
-    this.lastLanguage = this.buttonLanguages[1];
-    this.beforeLastLanguage = this.buttonLanguages[2];
+  setButtonLanguagesOrder(buttonsSide) {
+    this.currentLanguage[buttonsSide] = this.buttonLanguages[buttonsSide][0];
+    this.lastLanguage[buttonsSide] = this.buttonLanguages[buttonsSide][1];
+    this.beforeLastLanguage[buttonsSide] = this.buttonLanguages[buttonsSide][2];
   }
 
   togglePanelVisibility() {
@@ -128,16 +182,22 @@ export class LanguagePanel {
     element.classList.toggle("hide");
   }
 
-  // buttonText() {
-  //   this.languageButtonsLeft.forEach((button, index) => {
-  //     button.textContent = this.buttonLanguages[index].toUpperCase();
+  // buttonText(buttonsSide, element) {
+  //   this.languageButtonsLeftElm.forEach((button, index) => {
+  //     button.textContent =
+  //       languagesList[this.buttonLanguages[index]].name.toUpperCase();
+  //     button.dataset.code = this.buttonLanguages[index];
   //   });
   // }
-  buttonText() {
-    this.languageButtonsLeft.forEach((button, index) => {
+  buttonText(elements, buttonsSide) {
+    console.log(this.languageButtonsLeftElm);
+    console.log(this.languageButtonsRightElm);
+    elements.forEach((button, index) => {
       button.textContent =
-        languagesList[this.buttonLanguages[index]].name.toUpperCase();
-      button.dataset.code = this.buttonLanguages[index];
+        languagesList[
+          this.buttonLanguages[buttonsSide][index]
+        ].name.toUpperCase();
+      button.dataset.code = this.buttonLanguages[buttonsSide][index];
     });
   }
 
@@ -180,7 +240,7 @@ export class LanguagePanel {
     this.languagesListElm.insertAdjacentHTML("beforeend", item);
   }
 
-  activeItem(item) {
+  activeItemColor(item) {
     item.classList.toggle("list__item--active");
   }
 }

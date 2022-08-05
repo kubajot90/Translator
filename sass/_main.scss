@@ -31,6 +31,7 @@
             font-family: 'Roboto', sans-serif;
             font-weight: 500;
             border-bottom: 2px solid transparent;
+            cursor: pointer;
             transition: .1s;
             &:hover {
                 background-color:  #3c40430a;
@@ -73,7 +74,7 @@
            padding: 7px;
            border-radius: 50%;
            cursor: pointer;
-           transition: linear all .1s .2s;
+           transition: linear transform .1s .2s;
           
            &:hover {
             background-color:  rgba(237, 237, 237, 0.505);
