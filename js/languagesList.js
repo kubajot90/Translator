@@ -1,4 +1,6 @@
 export const languagesList = {
+  Autodetect: { name: "Autodetect" },
+
   af: { name: "Afrikaans" },
 
   sq: { name: "Albański" },

@@ -48,6 +48,7 @@ export class LanguagePanel {
     this.eventlisteners();
     this.buttonText(this.languageButtonsLeftElm, "left");
     this.buttonText(this.languageButtonsRightElm, "right");
+    this.languageListItemsElm[1].style.display = "none";
   }
 
   htmlElements() {
@@ -89,18 +90,23 @@ export class LanguagePanel {
 
     this.languageListItemsElm.forEach((item) => {
       item.addEventListener("click", (e) => {
-        console.log(e.target.dataset.code);
         const languageCode = e.target.dataset.code;
-        // const languageName = languagesList[languageCode].name;
-        this.activeItemColor(item);
-        this.isLanguageAutodetect = false;
 
-        if (this.languageExpandButtonleftClick) {
-          this.changeLanguage(languageCode, "left");
-          this.buttonText(this.languageButtonsLeftElm, "left");
-        } else {
-          this.changeLanguage(languageCode, "right");
-          this.buttonText(this.languageButtonsRightElm, "right");
+        this.removeAllActiveClass("list__item--active");
+        this.changeClass("add", item, "list__item--active");
+
+        languageCode === "Autodetect"
+          ? (this.isLanguageAutodetect = true)
+          : (this.isLanguageAutodetect = false);
+
+        if (!this.isLanguageAutodetect) {
+          if (this.languageExpandButtonleftClick) {
+            this.changeLanguage(languageCode, "left");
+            this.buttonText(this.languageButtonsLeftElm, "left");
+          } else {
+            this.changeLanguage(languageCode, "right");
+            this.buttonText(this.languageButtonsRightElm, "right");
+          }
         }
 
         this.togglePanelVisibility();
@@ -162,7 +168,6 @@ export class LanguagePanel {
     this.buttonLanguages[buttonsSide][1] = temporary;
 
     this.setButtonLanguagesOrder(buttonsSide);
-    console.log(this.buttonLanguages);
   }
 
   setButtonLanguagesOrder(buttonsSide) {
@@ -190,8 +195,6 @@ export class LanguagePanel {
   //   });
   // }
   buttonText(elements, buttonsSide) {
-    console.log(this.languageButtonsLeftElm);
-    console.log(this.languageButtonsRightElm);
     elements.forEach((button, index) => {
       button.textContent =
         languagesList[
@@ -240,7 +243,14 @@ export class LanguagePanel {
     this.languagesListElm.insertAdjacentHTML("beforeend", item);
   }
 
-  activeItemColor(item) {
-    item.classList.toggle("list__item--active");
+  removeAllActiveClass(selector) {
+    const allActiveelements = document.querySelectorAll(`.${selector}`);
+    allActiveelements.forEach((item) =>
+      this.changeClass("remove", item, selector)
+    );
+  }
+
+  changeClass(action, element, className) {
+    element.classList[action](className);
   }
 }
