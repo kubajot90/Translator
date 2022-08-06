@@ -17,3 +17,10 @@
     font-family: 'Roboto';
     // letter-spacing: 1px;
 }
+
+@mixin list__item-icons {
+    position: absolute;
+    left: 4px;
+    top: 45%;
+    transform: translateY(-50%);
+}

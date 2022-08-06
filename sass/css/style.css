@@ -234,13 +234,14 @@ input {
           flex-direction: column;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
-  height: 975px;
+  height: 781px;
   padding: 9px 0px 9px 25px;
 }
 .main .main__lang-panel .main__lang-list .list__item {
   list-style-type: none;
   position: relative;
-  padding: 6px 10px 8px 36px;
+  padding: 6px 10px 10px 36px;
+  margin-bottom: 2px;
   font-size: 0.87rem;
   font-weight: 400;
   color: rgba(0, 0, 0, 0.87);
@@ -252,7 +253,7 @@ input {
 }
 .main .main__lang-panel .main__lang-list .list__item .detect__language-icon {
   top: 4px;
-  right: 55px;
+  right: 52px;
   font-size: 1.3rem;
   position: absolute;
   color: inherit;
@@ -261,6 +262,29 @@ input {
   background-color: rgba(25, 102, 210, 0.1176470588);
   color: #1967d2;
   font-weight: 500;
+}
+.main .main__lang-panel .main__lang-list .list__item-active-icon {
+  display: none;
+  font-size: 1.4rem;
+  position: absolute;
+  left: 4px;
+  top: 45%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+}
+.main .main__lang-panel .main__lang-list .list__item-history-icon {
+  display: none;
+  font-size: 1.2rem;
+  font-weight: bold;
+  opacity: 0.7;
+  position: absolute;
+  left: 4px;
+  top: 45%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+}
+.main .main__lang-panel .main__lang-list .list__item-active-icon--show, .main .main__lang-panel .main__lang-list .list__item-history-icon--show {
+  display: block;
 }
 .main .main__panel {
   position: relative;

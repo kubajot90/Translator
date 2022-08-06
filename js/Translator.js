@@ -1,5 +1,6 @@
 import { LanguagePanel } from "./LanguagePanel.js";
 import { languagesList } from "./languagesList.js";
+import { Navigation } from "./Navigation.js";
 
 export class Translator {
   constructor() {
@@ -23,6 +24,8 @@ export class Translator {
 
     this.languagePanel = new LanguagePanel();
     this.languagePanel.init();
+    this.navigation = new Navigation();
+    this.navigation.init();
   }
 
   init() {

@@ -17,11 +17,6 @@ export class LanguagePanel {
     this.isLanguageAutodetect = true;
     this.languageExpandButtonleftClick = null;
 
-    // this.buttonLanguages = ["pl", "en", "de"];
-    // this.currentLanguage = this.buttonLanguages[0];
-    // this.lastLanguage = this.buttonLanguages[1];
-    // this.beforeLastLanguage = this.buttonLanguages[2];
-
     this.buttonLanguages = {
       left: ["pl", "en", "de"],
       right: ["pl", "en", "de"],
@@ -81,7 +76,6 @@ export class LanguagePanel {
       button.addEventListener("click", () => {
         this.togglePanelVisibility();
         this.buttonsAnimation(button, index);
-        // if(index ===0) this.languageExpandButtonleftClick = true;
         index
           ? (this.languageExpandButtonleftClick = false)
           : (this.languageExpandButtonleftClick = true);
@@ -91,9 +85,15 @@ export class LanguagePanel {
     this.languageListItemsElm.forEach((item) => {
       item.addEventListener("click", (e) => {
         const languageCode = e.target.dataset.code;
-
+        console.log(item.firstElementChild);
         this.removeAllActiveClass("list__item--active");
         this.changeClass("add", item, "list__item--active");
+        this.removeAllActiveClass("list__item-active-icon--show");
+        this.changeClass(
+          "add",
+          item.firstElementChild,
+          "list__item-active-icon--show"
+        );
 
         languageCode === "Autodetect"
           ? (this.isLanguageAutodetect = true)
@@ -121,11 +121,6 @@ export class LanguagePanel {
         this.changeLanguage(languageCode, "left");
         this.isLanguageAutodetect = false;
         this.checkButtonExpandClick();
-        // if (this.isbuttonExpandclick) {
-        //   this.isbuttonExpandclick = false;
-        //   this.togglePanelVisibility();
-        //   this.rotateButtonsBack();
-        // }
       });
     });
 
@@ -134,12 +129,6 @@ export class LanguagePanel {
         const languageCode = e.target.dataset.code;
         this.changeLanguage(languageCode, "right");
         this.checkButtonExpandClick();
-
-        // if (this.isbuttonExpandclick) {
-        //   this.isbuttonExpandclick = false;
-        //   this.togglePanelVisibility();
-        //   this.rotateButtonsBack();
-        // }
       });
     });
   }
@@ -152,15 +141,6 @@ export class LanguagePanel {
     }
   }
 
-  // changeLanguage(languageCode) {
-  //   const temporary = this.buttonLanguages[0];
-  //   this.buttonLanguages[0] = languageCode;
-  //   this.buttonLanguages[2] = this.buttonLanguages[1];
-  //   this.buttonLanguages[1] = temporary;
-
-  //   this.setButtonLanguagesOrder();
-  //   console.log(this.buttonLanguages);
-  // }
   changeLanguage(languageCode, buttonsSide) {
     const temporary = this.buttonLanguages[buttonsSide][0];
     this.buttonLanguages[buttonsSide][0] = languageCode;
@@ -187,13 +167,6 @@ export class LanguagePanel {
     element.classList.toggle("hide");
   }
 
-  // buttonText(buttonsSide, element) {
-  //   this.languageButtonsLeftElm.forEach((button, index) => {
-  //     button.textContent =
-  //       languagesList[this.buttonLanguages[index]].name.toUpperCase();
-  //     button.dataset.code = this.buttonLanguages[index];
-  //   });
-  // }
   buttonText(elements, buttonsSide) {
     elements.forEach((button, index) => {
       button.textContent =
@@ -206,9 +179,6 @@ export class LanguagePanel {
 
   buttonsAnimation(button, index) {
     if (this.isbuttonExpandclick) {
-      // this.languageExpandButtonsElm.forEach((element) =>
-      //   element.classList.remove("rotate")
-      // );
       this.rotateButtonsBack();
       this.isbuttonExpandclick = false;
     } else {
@@ -232,7 +202,11 @@ export class LanguagePanel {
         .replace(/,|;/gi, "")
         .split(" ")[0];
 
-      const item = `<li class="list__item" data-code="${property}" data-language-item>${nameLowerCase}</li>`;
+      const item = `<li class="list__item" data-code="${property}" data-language-item>
+      <span class="material-symbols-outlined list__item-active-icon">done</span>
+      <span class="material-symbols-outlined list__item-history-icon">history</span>
+      ${nameLowerCase}
+      </li>`;
 
       this.drawList(item);
     }
