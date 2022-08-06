@@ -35,6 +35,8 @@ export class LanguagePanel {
       left: this.buttonLanguages.left[2],
       right: this.buttonLanguages.right[2],
     };
+
+    this.languagesWithHistoryIcon = [];
   }
 
   init() {
@@ -85,7 +87,7 @@ export class LanguagePanel {
     this.languageListItemsElm.forEach((item) => {
       item.addEventListener("click", (e) => {
         const languageCode = e.target.dataset.code;
-        console.log(item.firstElementChild);
+        this.AddHistoryIcon(item);
         this.removeAllActiveClass("list__item--active");
         this.changeClass("add", item, "list__item--active");
         this.removeAllActiveClass("list__item-active-icon--show");
@@ -163,10 +165,6 @@ export class LanguagePanel {
     this.toggleElementVisibility(this.footerElm);
   }
 
-  toggleElementVisibility(element) {
-    element.classList.toggle("hide");
-  }
-
   buttonText(elements, buttonsSide) {
     elements.forEach((button, index) => {
       button.textContent =
@@ -226,5 +224,33 @@ export class LanguagePanel {
 
   changeClass(action, element, className) {
     element.classList[action](className);
+  }
+
+  toggleElementVisibility(element) {
+    element.classList.toggle("hide");
+  }
+
+  AddHistoryIcon(item) {
+    this.AddToHistoryArr(item);
+    this.removeAllActiveClass("list__item-history-icon--show");
+    this.languagesWithHistoryIcon.forEach((language, index) => {
+      if (index > 0) {
+        this.changeClass(
+          "add",
+          language.lastElementChild,
+          "list__item-history-icon--show"
+        );
+      }
+    });
+  }
+
+  AddToHistoryArr(item) {
+    const firstItem = this.languagesWithHistoryIcon[0];
+    if (item != firstItem) {
+      this.languagesWithHistoryIcon.unshift(item);
+    }
+    if (this.languagesWithHistoryIcon.length > 5)
+      this.languagesWithHistoryIcon.pop();
+    console.log(this.languagesWithHistoryIcon);
   }
 }
