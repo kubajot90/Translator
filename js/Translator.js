@@ -7,8 +7,8 @@ export class Translator {
     this.textareaLeftElm = null;
     this.textareaRightElm = null;
     this.loaderElm = null;
-    this.detectButtonElm = null;
-    this.detectButtonAfterElm = null;
+    // this.detectButtonElm = null;
+    // this.detectButtonAfterElm = null;
 
     this.fetchTimeout = null;
 
@@ -38,26 +38,28 @@ export class Translator {
     this.textareaLeftElm = document.querySelector("[data-textarea-left]");
     this.textareaRightElm = document.querySelector("[data-textarea-right]");
     this.loaderElm = document.querySelector("[data-loader]");
-    this.detectButtonElm = document.querySelector("[data-detect-lang]");
-    this.detectButtonAfterElm = document.querySelector(
-      "[data-detect-lang-after]"
-    );
+    // this.detectButtonElm = document.querySelector("[data-detect-lang]");
+    // this.detectButtonAfterElm = document.querySelector(
+    //   "[data-detect-lang-after]"
+    // );
   }
 
   eventlisteners() {
     this.textareaLeftElm.addEventListener("input", () => {
       this.setApiEndpoint();
       this.delayFetch(this.API__ENDPOINT);
-      // this.changeDetectButtonText();
+      this.changeDetectButtonText(this.detectedLanguage);
     });
 
     this.textareaLeftElm.addEventListener("keydown", (e) => {
       if (e.code === "Space") this.isSpaceClick = true;
     });
 
-    this.detectButtonElm.addEventListener("click", () => {
-      this.isLanguageAutodetect = true;
-    });
+    // this.detectButtonElm.addEventListener("click", () => {
+    //   this.languagePanel.isLanguageAutodetect = true;
+    //   this.languagePanel.removeAllActiveClass("main__button-lang--active");
+    //   this.detectButtonElm.classList.add("main__button-lang--active");
+    // });
   }
 
   delayFetch(endpoint) {
@@ -80,8 +82,7 @@ export class Translator {
       if (this.languagePanel.isLanguageAutodetect) {
         const detectedLanguage = parsedResponse.responseData.detectedLanguage
           ? parsedResponse.responseData.detectedLanguage
-          : this.resetButtonDetect();
-
+          : this.languagePanel.hideDetectButtonAfter();
         this.detectedLanguage =
           languagesList[detectedLanguage].name.toUpperCase();
       }
@@ -98,7 +99,7 @@ export class Translator {
 
   setApiEndpoint() {
     this.textToTranslate = this.textareaLeftElm.value;
-    // this.firstLanguage = "Autodetect";
+
     this.firstLanguage = this.languagePanel.isLanguageAutodetect
       ? "Autodetect"
       : this.languagePanel.currentLanguage.left;
@@ -114,28 +115,35 @@ export class Translator {
     } else {
       this.textareaRightElm.textContent = text.replace("!", "");
     }
-    this.changeDetectButtonText();
+    this.changeDetectButtonText(this.detectedLanguage);
     this.resetTextarea();
   }
 
-  changeDetectButtonText() {
+  changeDetectButtonText(text) {
     if (this.firstLanguage === "Autodetect") {
-      this.detectButtonElm.classList.add("hide");
-      this.detectButtonAfterElm.style.display = "block";
-      this.detectButtonAfterElm.textContent = `WYKRYTO:${this.detectedLanguage}`;
+      this.languagePanel.detectButtonAfterElm.textContent = `WYKRYTO:${text}`;
+      this.languagePanel.showDetectButtonAfter();
     }
   }
+  // changeDetectButtonText() {
+  //   if (this.firstLanguage === "Autodetect") {
+  //     this.detectButtonElm.classList.add("hide");
+  //     this.detectButtonAfterElm.style.display = "block";
+  //     this.detectButtonAfterElm.textContent = `WYKRYTO:${this.detectedLanguage}`;
+  //     this.detectButtonAfterElm.classList.add("main__button-lang--active");
+  //   }
+  // }
 
-  resetButtonDetect() {
-    this.detectButtonElm.classList.remove("hide");
-    this.detectButtonAfterElm.style.display = "none";
-  }
+  // resetButtonDetect() {
+  //   this.detectButtonElm.classList.remove("hide");
+  //   this.detectButtonAfterElm.style.display = "none";
+  // }
 
   resetTextarea() {
     if (this.textareaLeftElm.value === "") {
       this.textareaRightElm.innerHTML =
         '<span class="textarea__placeholder">Tłumaczenie</span>';
-      this.resetButtonDetect();
+      this.languagePanel.hideDetectButtonAfter();
     }
   }
 

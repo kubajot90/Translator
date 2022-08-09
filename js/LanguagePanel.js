@@ -12,6 +12,10 @@ export class LanguagePanel {
     this.languageListItemsElm = null;
     this.languageButtonsLeftElm = null;
     this.languageButtonsRightElm = null;
+    this.detectButtonElm = null;
+    this.detectButtonAfterElm = null;
+    this.leftPanel = null;
+    this.rightPanel = null;
 
     this.isbuttonExpandclick = false;
     this.isLanguageAutodetect = true;
@@ -53,6 +57,12 @@ export class LanguagePanel {
     this.mainPanelElm = document.querySelector("[data-main-panel]");
     this.mainFooterElm = document.querySelector("[data-main-footer]");
     this.footerElm = document.querySelector("[data-footer]");
+    this.detectButtonElm = document.querySelector("[data-detect-lang]");
+    this.detectButtonAfterElm = document.querySelector(
+      "[data-detect-lang-after]"
+    );
+    this.leftPanel = document.querySelector("[data-left-panel]");
+    this.rightPanel = document.querySelector("[data-right-panel]");
 
     this.expandIconsBackgroundElm = document.querySelectorAll(
       "[data-expand-icon-background]"
@@ -120,6 +130,9 @@ export class LanguagePanel {
     this.languageButtonsLeftElm.forEach((button) => {
       button.addEventListener("click", (e) => {
         const languageCode = e.target.dataset.code;
+        this.hideDetectButtonAfter();
+        this.removeAllActiveClass("main__button-lang--active", this.leftPanel);
+        this.changeClass("add", e.target, "main__button-lang--active");
         this.changeLanguage(languageCode, "left");
         this.isLanguageAutodetect = false;
         this.checkButtonExpandClick();
@@ -128,11 +141,39 @@ export class LanguagePanel {
 
     this.languageButtonsRightElm.forEach((button) => {
       button.addEventListener("click", (e) => {
+        this.removeAllActiveClass("main__button-lang--active", this.rightPanel);
+        this.changeClass("add", e.target, "main__button-lang--active");
+        this.hideDetectButtonAfter();
         const languageCode = e.target.dataset.code;
         this.changeLanguage(languageCode, "right");
         this.checkButtonExpandClick();
       });
     });
+
+    this.detectButtonElm.addEventListener("click", () => {
+      this.isLanguageAutodetect = true;
+      this.removeAllActiveClass("main__button-lang--active", this.leftPanel);
+      this.changeClass(
+        "add",
+        this.detectButtonElm,
+        "main__button-lang--active"
+      );
+    });
+  }
+
+  showDetectButtonAfter() {
+    this.changeClass("add", this.detectButtonElm, "hide");
+    this.detectButtonAfterElm.style.display = "block";
+    this.changeClass(
+      "add",
+      this.detectButtonAfterElm,
+      "main__button-lang--active"
+    );
+  }
+
+  hideDetectButtonAfter() {
+    this.detectButtonElm.classList.remove("hide");
+    this.detectButtonAfterElm.style.display = "none";
   }
 
   checkButtonExpandClick() {
@@ -215,9 +256,9 @@ export class LanguagePanel {
     this.languagesListElm.insertAdjacentHTML("beforeend", item);
   }
 
-  removeAllActiveClass(selector) {
-    const allActiveelements = document.querySelectorAll(`.${selector}`);
-    allActiveelements.forEach((item) =>
+  removeAllActiveClass(selector, inElement = "document") {
+    const allActiveElements = inElement.querySelectorAll(`.${selector}`);
+    allActiveElements.forEach((item) =>
       this.changeClass("remove", item, selector)
     );
   }
