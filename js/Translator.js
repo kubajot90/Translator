@@ -7,14 +7,14 @@ export class Translator {
     this.textareaLeftElm = null;
     this.textareaRightElm = null;
     this.loaderElm = null;
-    // this.detectButtonElm = null;
-    // this.detectButtonAfterElm = null;
+    this.panelBackgroundElm = null;
+    this.textareaXMarkElm = null;
 
     this.fetchTimeout = null;
 
     this.firstLanguage = null;
     this.secondLanguage = null;
-    this.detectedLanguage = null;
+    this.detectedLanguage = "";
     this.textToTranslate = null;
 
     this.API = "https://api.mymemory.translated.net";
@@ -31,21 +31,20 @@ export class Translator {
   init() {
     this.htmlElements();
     this.eventlisteners();
-    this.textareaLeftElm.value = "";
+    this.resetTextareaLeft();
   }
 
   htmlElements() {
     this.textareaLeftElm = document.querySelector("[data-textarea-left]");
     this.textareaRightElm = document.querySelector("[data-textarea-right]");
     this.loaderElm = document.querySelector("[data-loader]");
-    // this.detectButtonElm = document.querySelector("[data-detect-lang]");
-    // this.detectButtonAfterElm = document.querySelector(
-    //   "[data-detect-lang-after]"
-    // );
+    this.panelBackgroundElm = document.querySelector("[data-panel-background]");
+    this.textareaXMarkElm = document.querySelector("[data-x-mark]");
   }
 
   eventlisteners() {
     this.textareaLeftElm.addEventListener("input", () => {
+      this.elementShow(this.textareaXMarkElm);
       this.setApiEndpoint();
       this.delayFetch(this.API__ENDPOINT);
       this.changeDetectButtonText(this.detectedLanguage);
@@ -55,11 +54,13 @@ export class Translator {
       if (e.code === "Space") this.isSpaceClick = true;
     });
 
-    // this.detectButtonElm.addEventListener("click", () => {
-    //   this.languagePanel.isLanguageAutodetect = true;
-    //   this.languagePanel.removeAllActiveClass("main__button-lang--active");
-    //   this.detectButtonElm.classList.add("main__button-lang--active");
-    // });
+    this.textareaXMarkElm.addEventListener("click", () => {
+      this.resetTextareaLeft();
+      this.resetTextareaRight();
+      this.languagePanel.hideDetectButtonAfter();
+      this.elementHide(this.textareaXMarkElm);
+      this.elementHide(this.panelBackgroundElm);
+    });
   }
 
   delayFetch(endpoint) {
@@ -73,7 +74,7 @@ export class Translator {
   }
 
   async fetchData(endpoint) {
-    this.loaderShow();
+    this.elementShow(this.loaderElm);
     try {
       const response = await fetch(endpoint);
       const parsedResponse = await response.json();
@@ -90,7 +91,8 @@ export class Translator {
         ? this.displayText(this.textToTranslate)
         : this.displayText(parsedResponse.responseData.translatedText);
 
-      this.loaderHide();
+      this.elementHide(this.loaderElm);
+      this.elementShow(this.panelBackgroundElm);
     } catch (err) {
       console.log("ERROR");
       console.log(err);
@@ -116,7 +118,8 @@ export class Translator {
       this.textareaRightElm.textContent = text.replace("!", "");
     }
     this.changeDetectButtonText(this.detectedLanguage);
-    this.resetTextarea();
+    this.resetTextareaRight();
+    // this.languagePanel.hideDetectButtonAfter();
   }
 
   changeDetectButtonText(text) {
@@ -125,33 +128,23 @@ export class Translator {
       this.languagePanel.showDetectButtonAfter();
     }
   }
-  // changeDetectButtonText() {
-  //   if (this.firstLanguage === "Autodetect") {
-  //     this.detectButtonElm.classList.add("hide");
-  //     this.detectButtonAfterElm.style.display = "block";
-  //     this.detectButtonAfterElm.textContent = `WYKRYTO:${this.detectedLanguage}`;
-  //     this.detectButtonAfterElm.classList.add("main__button-lang--active");
-  //   }
-  // }
 
-  // resetButtonDetect() {
-  //   this.detectButtonElm.classList.remove("hide");
-  //   this.detectButtonAfterElm.style.display = "none";
-  // }
-
-  resetTextarea() {
+  resetTextareaRight() {
     if (this.textareaLeftElm.value === "") {
       this.textareaRightElm.innerHTML =
         '<span class="textarea__placeholder">Tłumaczenie</span>';
-      this.languagePanel.hideDetectButtonAfter();
     }
   }
 
-  loaderShow() {
-    this.loaderElm.style.display = "inline-block";
+  resetTextareaLeft() {
+    this.textareaLeftElm.value = "";
   }
 
-  loaderHide() {
-    this.loaderElm.style.display = "none";
+  elementShow(element) {
+    element.style.display = "inline-block";
+  }
+
+  elementHide(element) {
+    element.style.display = "none";
   }
 }

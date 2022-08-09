@@ -9,9 +9,18 @@
     box-shadow: 0 1px 4px 0 rgba(0,0,0,.37);
     background-color: #fff;
 
+    .main__right-panel-background {
+        display: none;
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        width: 50%;
+        height: 170px;
+        background-color:  rgba(237, 237, 237, 0.578);;
+    }
+
     .main__header {
         display: flex;
-        // align-items: center;
         width: 100%;
         top: 0;
         border-bottom: 1px solid $main-border-color;
@@ -230,6 +239,7 @@
             @include main-panel;
             
             .main__panel-x-mark {
+                display: none;
                 position: absolute;
                 top: 0;
                 right: 0;

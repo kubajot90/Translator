@@ -98,13 +98,15 @@ export class LanguagePanel {
       item.addEventListener("click", (e) => {
         const languageCode = e.target.dataset.code;
         this.AddHistoryIcon(item);
-        this.removeAllActiveClass("list__item--active");
-        this.changeClass("add", item, "list__item--active");
-        this.removeAllActiveClass("list__item-active-icon--show");
-        this.changeClass(
-          "add",
-          item.firstElementChild,
-          "list__item-active-icon--show"
+        this.addButtonActiveClass("list__item--active", item);
+        this.addButtonActiveClass(
+          "list__item-active-icon--show",
+          item.firstElementChild
+        );
+        this.addButtonActiveClass(
+          "main__button-lang--active",
+          this.languageButtonsLeftElm[0],
+          this.leftPanel
         );
 
         languageCode === "Autodetect"
@@ -131,8 +133,11 @@ export class LanguagePanel {
       button.addEventListener("click", (e) => {
         const languageCode = e.target.dataset.code;
         this.hideDetectButtonAfter();
-        this.removeAllActiveClass("main__button-lang--active", this.leftPanel);
-        this.changeClass("add", e.target, "main__button-lang--active");
+        this.addButtonActiveClass(
+          "main__button-lang--active",
+          e.target,
+          this.leftPanel
+        );
         this.changeLanguage(languageCode, "left");
         this.isLanguageAutodetect = false;
         this.checkButtonExpandClick();
@@ -141,8 +146,11 @@ export class LanguagePanel {
 
     this.languageButtonsRightElm.forEach((button) => {
       button.addEventListener("click", (e) => {
-        this.removeAllActiveClass("main__button-lang--active", this.rightPanel);
-        this.changeClass("add", e.target, "main__button-lang--active");
+        this.addButtonActiveClass(
+          "main__button-lang--active",
+          e.target,
+          this.rightPanel
+        );
         this.hideDetectButtonAfter();
         const languageCode = e.target.dataset.code;
         this.changeLanguage(languageCode, "right");
@@ -152,13 +160,17 @@ export class LanguagePanel {
 
     this.detectButtonElm.addEventListener("click", () => {
       this.isLanguageAutodetect = true;
-      this.removeAllActiveClass("main__button-lang--active", this.leftPanel);
-      this.changeClass(
-        "add",
+      this.addButtonActiveClass(
+        "main__button-lang--active",
         this.detectButtonElm,
-        "main__button-lang--active"
+        this.leftPanel
       );
     });
+  }
+
+  addButtonActiveClass(className, ofElement, inElement) {
+    this.removeAllActiveClass(className, inElement);
+    this.changeClass("add", ofElement, className);
   }
 
   showDetectButtonAfter() {
@@ -256,7 +268,7 @@ export class LanguagePanel {
     this.languagesListElm.insertAdjacentHTML("beforeend", item);
   }
 
-  removeAllActiveClass(selector, inElement = "document") {
+  removeAllActiveClass(selector, inElement = document) {
     const allActiveElements = inElement.querySelectorAll(`.${selector}`);
     allActiveElements.forEach((item) =>
       this.changeClass("remove", item, selector)

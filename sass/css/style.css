@@ -64,6 +64,15 @@ input {
           box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.37);
   background-color: #fff;
 }
+.main .main__right-panel-background {
+  display: none;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 50%;
+  height: 170px;
+  background-color: rgba(237, 237, 237, 0.578);
+}
 .main .main__header {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -310,6 +319,7 @@ input {
   font-family: "Roboto";
 }
 .main .main__panel .main__panel-left .main__panel-x-mark {
+  display: none;
   position: absolute;
   top: 0;
   right: 0;
