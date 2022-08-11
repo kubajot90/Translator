@@ -1,5 +1,5 @@
-export const languagesList = {
-  Autodetect: { name: "Autodetect" },
+export let languagesList = {
+  // Autodetect: { name: "Autodetect" },
 
   af: { name: "Afrikaans" },
 
@@ -145,3 +145,36 @@ export const languagesList = {
   yi: { name: "jidysz" },
   zu: { name: "Zulu" },
 };
+
+let reverseObjects = {};
+let sortedValue = {};
+let sortedObjectsByName = {};
+
+function swapInObjects() {
+  for (const property in languagesList) {
+    reverseObjects[languagesList[property].name] = property;
+  }
+}
+
+function sortValues() {
+  let values = Object.values(languagesList);
+  values.sort((a, b) => a.name.localeCompare(b.name));
+  values.forEach((value) => {
+    sortedValue[value.name] = reverseObjects[value.name];
+  });
+}
+
+function setByName() {
+  for (const property in sortedValue) {
+    sortedObjectsByName[reverseObjects[property]] = { name: property };
+  }
+}
+
+function sortByName() {
+  swapInObjects();
+  sortValues();
+  setByName();
+
+  return sortedObjectsByName;
+}
+languagesList = sortByName();

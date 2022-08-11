@@ -17,6 +17,8 @@ export class LanguagePanel {
     this.leftPanel = null;
     this.rightPanel = null;
 
+    this.sortedObj = {};
+
     this.isbuttonExpandclick = false;
     this.isLanguageAutodetect = true;
     this.languageExpandButtonleftClick = null;
@@ -103,15 +105,20 @@ export class LanguagePanel {
           "list__item-active-icon--show",
           item.firstElementChild
         );
-        this.addButtonActiveClass(
-          "main__button-lang--active",
-          this.languageButtonsLeftElm[0],
-          this.leftPanel
-        );
 
         languageCode === "Autodetect"
           ? (this.isLanguageAutodetect = true)
           : (this.isLanguageAutodetect = false);
+
+        if (!this.isLanguageAutodetect) {
+          this.addButtonActiveClass(
+            "main__button-lang--active",
+            this.languageButtonsLeftElm[0],
+            this.leftPanel
+          );
+        } else {
+          this.detectButtonActiveClass();
+        }
 
         if (!this.isLanguageAutodetect) {
           if (this.languageExpandButtonleftClick) {
@@ -158,14 +165,17 @@ export class LanguagePanel {
       });
     });
 
-    this.detectButtonElm.addEventListener("click", () => {
-      this.isLanguageAutodetect = true;
-      this.addButtonActiveClass(
-        "main__button-lang--active",
-        this.detectButtonElm,
-        this.leftPanel
-      );
-    });
+    this.detectButtonElm.addEventListener("click", () =>
+      this.detectButtonActiveClass()
+    );
+  }
+  detectButtonActiveClass() {
+    this.isLanguageAutodetect = true;
+    this.addButtonActiveClass(
+      "main__button-lang--active",
+      this.detectButtonElm,
+      this.leftPanel
+    );
   }
 
   addButtonActiveClass(className, ofElement, inElement) {
@@ -304,6 +314,5 @@ export class LanguagePanel {
     }
     if (this.languagesWithHistoryIcon.length > 5)
       this.languagesWithHistoryIcon.pop();
-    console.log(this.languagesWithHistoryIcon);
   }
 }
