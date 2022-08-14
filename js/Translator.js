@@ -9,6 +9,7 @@ export class Translator {
     this.loaderElm = null;
     this.panelBackgroundElm = null;
     this.textareaXMarkElm = null;
+    // this.swapLanguageButton = null;
 
     this.fetchTimeout = null;
 
@@ -40,6 +41,7 @@ export class Translator {
     this.loaderElm = document.querySelector("[data-loader]");
     this.panelBackgroundElm = document.querySelector("[data-panel-background]");
     this.textareaXMarkElm = document.querySelector("[data-x-mark]");
+    // this.swapLanguageButton = document.querySelector("[data-swap-lang]");
   }
 
   eventlisteners() {
@@ -61,6 +63,12 @@ export class Translator {
       this.elementHide(this.textareaXMarkElm);
       this.elementHide(this.panelBackgroundElm);
     });
+
+    // this.swapLanguageButton.addEventListener("click", () => {
+    //   const temporary = this.firstLanguage;
+    //   this.firstLanguage = this.secondLanguage;
+    //   this.secondLanguage = temporary;
+    // });
   }
 
   delayFetch(endpoint) {
@@ -79,14 +87,25 @@ export class Translator {
       const response = await fetch(endpoint);
       const parsedResponse = await response.json();
       console.log(parsedResponse);
+      console.log(this.firstLanguage);
+      console.log(this.secondLanguage);
+      console.log("this.languagePanel.isLanguageAutodetect");
+      console.log(this.languagePanel.isLanguageAutodetect);
 
       if (this.languagePanel.isLanguageAutodetect) {
+        console.log(parsedResponse.responseData);
+        // POD TYM JEST BLAD
+
         const detectedLanguage = parsedResponse.responseData.detectedLanguage
           ? parsedResponse.responseData.detectedLanguage
           : this.languagePanel.hideDetectButtonAfter();
+        console.log("detect lang1" + this.detectedLanguage);
+        console.log(this.detectedLanguage);
         this.detectedLanguage =
           languagesList[detectedLanguage].name.toUpperCase();
+        console.log("detect lang2" + this.detectedLanguage);
       }
+
       parsedResponse.responseStatus === "403"
         ? this.displayText(this.textToTranslate)
         : this.displayText(parsedResponse.responseData.translatedText);
