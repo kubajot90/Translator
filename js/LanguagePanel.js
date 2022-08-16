@@ -1,4 +1,5 @@
 import { languagesList } from "./languagesList.js";
+import { Search } from "./Search.js";
 
 export class LanguagePanel {
   constructor() {
@@ -8,7 +9,7 @@ export class LanguagePanel {
     this.mainFooterElm = null;
     this.footerElm = null;
     this.expandIconsBackgroundElm = null;
-    this.languagesListElm = null;
+    this.languagesListElm = document.querySelector("[data-lang-list]");
     this.languageListItemsElm = null;
     this.languageButtonsLeftElm = null;
     this.languageButtonsRightElm = null;
@@ -17,6 +18,8 @@ export class LanguagePanel {
     this.leftPanel = null;
     this.rightPanel = null;
     this.swapLanguageButton = null;
+    this.swapLanguageIcon = null;
+    // this.searchInputElm = null;
 
     this.sortedObj = {};
 
@@ -47,15 +50,18 @@ export class LanguagePanel {
     };
 
     this.languagesWithHistoryIcon = [];
+
+    // this.search = new Search(this.languagesListElm, this.languageListItemsElm);
   }
 
   init() {
-    this.createListItem();
+    this.createListItem(languagesList);
     this.htmlElements();
+    this.search = new Search(this.languagesListElm, this.languageListItemsElm);
     this.eventlisteners();
     this.buttonText(this.languageButtonsLeftElm, "left");
     this.buttonText(this.languageButtonsRightElm, "right");
-    // this.languageListItemsElm[1].style.display = "none";
+    this.swapIconDisable();
   }
 
   htmlElements() {
@@ -67,9 +73,12 @@ export class LanguagePanel {
     this.detectButtonAfterElm = document.querySelector(
       "[data-detect-lang-after]"
     );
+
     this.leftPanel = document.querySelector("[data-left-panel]");
     this.rightPanel = document.querySelector("[data-right-panel]");
     this.swapLanguageButton = document.querySelector("[data-swap-lang]");
+    this.swapLanguageIcon = document.querySelector("[data-swap-lang-icon]");
+    // this.searchInputElm = document.querySelector("[data-search]");
 
     this.expandIconsBackgroundElm = document.querySelectorAll(
       "[data-expand-icon-background]"
@@ -98,6 +107,9 @@ export class LanguagePanel {
         index
           ? (this.languageExpandButtonleftClick = false)
           : (this.languageExpandButtonleftClick = true);
+
+        if (this.search.isInputSearch) this.createListItem(languagesList);
+        this.search.clearInput();
       })
     );
 
@@ -105,18 +117,11 @@ export class LanguagePanel {
       item.addEventListener("click", (e) => {
         const languageCode = e.target.dataset.code;
         this.listItemActive(item);
-        console.log("language code: " + languageCode);
+
         languageCode === "Autodetect"
           ? (this.isLanguageAutodetect = true)
           : (this.isLanguageAutodetect = false);
 
-        // if (!this.isLanguageAutodetect) {
-        //   this.addActiveClass(
-        //     "main__button-lang--active",
-        //     this.languageButtonsLeftElm[0],
-        //     this.leftPanel
-        //   );
-        // }
         if (!this.isLanguageAutodetect) {
           if (this.languageExpandButtonleftClick) {
             this.addActiveClass(
@@ -124,6 +129,7 @@ export class LanguagePanel {
               this.languageButtonsLeftElm[0],
               this.leftPanel
             );
+            this.swapIconEnable();
           } else {
             this.addActiveClass(
               "main__button-lang--active",
@@ -150,6 +156,8 @@ export class LanguagePanel {
         this.rotateButtonsBack();
         console.log("LEFT SIDE: " + this.buttonLanguages.left);
         console.log("RIGHT SIDE: " + this.buttonLanguages.right);
+        if (this.search.isInputSearch) this.createListItem(languagesList);
+        this.search.clearInput();
       });
     });
 
@@ -171,6 +179,9 @@ export class LanguagePanel {
         });
         console.log("LEFT SIDE: " + this.buttonLanguages.left);
         console.log("RIGHT SIDE: " + this.buttonLanguages.right);
+        if (this.search.isInputSearch) this.createListItem(languagesList);
+        this.search.clearInput();
+        this.swapIconEnable();
       });
     });
 
@@ -187,6 +198,8 @@ export class LanguagePanel {
         this.checkButtonExpandClick();
         console.log("LEFT SIDE: " + this.buttonLanguages.left);
         console.log("RIGHT SIDE: " + this.buttonLanguages.right);
+        if (this.search.isInputSearch) this.createListItem(languagesList);
+        this.search.clearInput();
       });
     });
 
@@ -195,15 +208,22 @@ export class LanguagePanel {
     );
 
     this.swapLanguageButton.addEventListener("click", () => {
-      // console.log(this.buttonLanguages.left);
-      // console.log(this.buttonLanguages.right);
-
       this.swapLanguages();
-      // this.buttonText(this.languageButtonsLeftElm, "left");
-      // this.buttonText(this.languageButtonsRightElm, "right");
+      this.setButtonLanguagesOrder("left");
+      this.setButtonLanguagesOrder("right");
       console.log("LEFT SIDE: " + this.buttonLanguages.left);
       console.log("RIGHT SIDE: " + this.buttonLanguages.right);
     });
+
+    // this.searchInputElm.addEventListener("input", () => {
+    //   console.log(this.languagesListElm);
+    //   this.languagesListElm.innerHTML = "";
+    //   // this.languageListItemsElm.forEach((item) => item.remove());
+    //   console.log(this.languagesListElm);
+
+    //   const itemsArray = this.search.searchInList(this.searchInputElm.value);
+    //   this.search.drawList(itemsArray);
+    // });
   }
 
   swapLanguages() {
@@ -213,6 +233,7 @@ export class LanguagePanel {
     let newArrRight = [];
     let temporaryLeft = null;
     let temporaryRight = null;
+    let temporary = this.buttonLanguages.left[0];
 
     this.buttonLanguages.left.forEach((element) => {
       if (element !== this.buttonLanguages.right[0]) {
@@ -226,17 +247,13 @@ export class LanguagePanel {
           this.leftPanel
         );
       }
-      // if (newArrLeft.length === 3) {
-      //   this.buttonLanguages.left = newArrLeft;
-      //   newArrLeft = [];
-      //   counterLeft = 1;
-      // }
     });
 
     this.buttonLanguages.right.forEach((element, index) => {
       if (element !== this.buttonLanguages.left[0]) {
         newArrRight.push(element);
         differenceCounterRight++;
+        console.log("push    " + differenceCounterLeft);
       } else if (element === this.buttonLanguages.left[0]) {
         temporaryRight = element;
         console.log(index);
@@ -246,16 +263,10 @@ export class LanguagePanel {
           this.rightPanel
         );
       }
-      // if (newArrRight.length === 3) {
-      //   this.buttonLanguages.right = newArrRight;
-      //   newArrRight = [];
-      //   counterRight = 1;
-      // }
     });
-    let temporary = null;
+
     if (newArrLeft.length < 3) newArrLeft.unshift(temporaryLeft);
     this.buttonLanguages.left = newArrLeft;
-    temporary = this.buttonLanguages.left[0];
 
     if (differenceCounterLeft === 3) {
       this.buttonLanguages.left[0] = this.buttonLanguages.right[0];
@@ -266,8 +277,6 @@ export class LanguagePanel {
         this.leftPanel
       );
     }
-    // newArrLeft = [];
-    // counterLeft = 1;
     if (newArrRight.length < 3) newArrRight.unshift(temporaryRight);
     this.buttonLanguages.right = newArrRight;
     if (differenceCounterRight === 3) {
@@ -279,15 +288,16 @@ export class LanguagePanel {
         this.rightPanel
       );
     }
-    // newArrRight = [];
-    // counterRight = 1;
+  }
 
-    // console.log(this.buttonLanguages.left);
-    // console.log(this.buttonLanguages.right);
+  swapIconDisable() {
+    this.swapLanguageIcon.classList.add("swap-lang__icon--disable");
+    this.swapLanguageButton.style.pointerEvents = "none";
+  }
 
-    // const temporary = this.buttonLanguages.left[0];
-    // this.buttonLanguages.left[0] = this.buttonLanguages.right[0];
-    // this.buttonLanguages.right[0] = temporary;
+  swapIconEnable() {
+    this.swapLanguageIcon.classList.remove("swap-lang__icon--disable");
+    this.swapLanguageButton.style.pointerEvents = "auto";
   }
 
   listItemActive(item) {
@@ -303,6 +313,7 @@ export class LanguagePanel {
       this.detectButtonElm,
       this.leftPanel
     );
+    this.swapIconDisable();
   }
 
   addActiveClass(className, ofElement, inElement) {
@@ -334,14 +345,7 @@ export class LanguagePanel {
   }
 
   changeLanguage(languageCode, buttonsSide) {
-    // console.log("LEFT SIDE: " + this.buttonLanguages.left);
     if (languageCode !== this.buttonLanguages[buttonsSide][0]) {
-      // const temporary = this.buttonLanguages[buttonsSide][0];
-      // this.buttonLanguages[buttonsSide][0] = languageCode;
-      // this.buttonLanguages[buttonsSide][2] =
-      // this.buttonLanguages[buttonsSide][1];
-      // this.buttonLanguages[buttonsSide][1] = temporary;
-
       let temporaryArr = [];
       let differentLangCounter = 0;
 
@@ -364,12 +368,8 @@ export class LanguagePanel {
         this.buttonLanguages[buttonsSide] = temporaryArr;
       }
 
-      // console.log("LEFT SIDE: " + this.buttonLanguages.left);
       this.setButtonLanguagesOrder(buttonsSide);
-      // console.log("LEFT SIDE: " + this.buttonLanguages.left);
     }
-    // console.log(this.buttonLanguages.left);
-    // console.log(this.buttonLanguages.right);
   }
 
   setButtonLanguagesOrder(buttonsSide) {
@@ -413,9 +413,21 @@ export class LanguagePanel {
     button.forEach((element) => element.classList.remove("rotate"));
   }
 
-  createListItem() {
-    for (const property in languagesList) {
-      const nameLowerCase = languagesList[property].name
+  AutodetectListItem() {
+    return `<li class="list__item" data-code="Autodetect" data-language-item>
+      Wykryj język
+      <span class="material-symbols-outlined detect__language-icon">
+        auto_awesome
+      </span>
+    </li> `;
+  }
+
+  createListItem(list) {
+    this.languagesListElm.innerHTML = "";
+    this.drawList(this.AutodetectListItem());
+
+    for (const property in list) {
+      const nameLowerCase = list[property].name
         .toLowerCase()
         .replace(/,|;/gi, "")
         .split(" ")[0];
@@ -431,7 +443,7 @@ export class LanguagePanel {
   }
 
   drawList(item) {
-    this.languagesListElm = document.querySelector("[data-lang-list]");
+    // this.languagesListElm = document.querySelector("[data-lang-list]");
     this.languagesListElm.insertAdjacentHTML("beforeend", item);
   }
 

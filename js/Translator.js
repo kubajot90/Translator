@@ -9,7 +9,6 @@ export class Translator {
     this.loaderElm = null;
     this.panelBackgroundElm = null;
     this.textareaXMarkElm = null;
-    // this.swapLanguageButton = null;
 
     this.fetchTimeout = null;
 
@@ -86,24 +85,16 @@ export class Translator {
     try {
       const response = await fetch(endpoint);
       const parsedResponse = await response.json();
-      console.log(parsedResponse);
-      console.log(this.firstLanguage);
-      console.log(this.secondLanguage);
-      console.log("this.languagePanel.isLanguageAutodetect");
-      console.log(this.languagePanel.isLanguageAutodetect);
 
       if (this.languagePanel.isLanguageAutodetect) {
         console.log(parsedResponse.responseData);
-        // POD TYM JEST BLAD
 
         const detectedLanguage = parsedResponse.responseData.detectedLanguage
           ? parsedResponse.responseData.detectedLanguage
           : this.languagePanel.hideDetectButtonAfter();
-        console.log("detect lang1" + this.detectedLanguage);
-        console.log(this.detectedLanguage);
+
         this.detectedLanguage =
           languagesList[detectedLanguage].name.toUpperCase();
-        console.log("detect lang2" + this.detectedLanguage);
       }
 
       parsedResponse.responseStatus === "403"
@@ -126,7 +117,8 @@ export class Translator {
       : this.languagePanel.currentLanguage.left;
 
     this.secondLanguage = this.languagePanel.currentLanguage.right;
-
+    console.log("first lang: " + this.firstLanguage);
+    console.log("second lang: " + this.secondLanguage);
     this.API__ENDPOINT = `${this.API}/get?q=${this.textToTranslate}!&langpair=${this.firstLanguage}|${this.secondLanguage}`;
   }
 

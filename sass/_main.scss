@@ -103,16 +103,21 @@
     .swap-lang__button {
         position: relative;
         padding: 0 4px;
-        cursor: pointer;
+        // cursor: pointer;
 
         .swap-lang__icon {
         font-size: 1rem;
         font-weight: bold;
         padding: 12px;
+        cursor: pointer;
         &:hover {
             background-color: rgba(237, 237, 237, 0.505);
             border-radius: 50%;
         }
+    }
+    .swap-lang__icon--disable {
+        opacity: .5;
+        
     }
     }
 
@@ -144,6 +149,7 @@
            }
 
            .main__search-input {
+                width: 100%;
                 font-size: 1rem;
                 color: black;
                 font-weight: 300;
@@ -162,10 +168,12 @@
             display: flex;
             flex-direction: column;
             flex-wrap: wrap;
-            // height: 975px;
             height: 781px;
-            // padding: 9px 25px;
             padding: 9px 0px 9px 25px;
+            position: relative;
+            background-color: #fff;
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
     
             .list__item{
                 list-style-type: none;
@@ -183,7 +191,8 @@
              }
                 .detect__language-icon {
                     top: 4px;
-                    right: 52px;
+                    // right: 52px;
+                    left: 118px;
                     font-size: 1.3rem;
                     position: absolute;
                     color: inherit;
@@ -193,7 +202,8 @@
             }
 
             .list__item--active {
-                background-color: rgba(25, 102, 210, 0.1176470588);
+                // background-color: rgba(25, 102, 210, 0.1176470588);
+                background-color:rgb(228, 240, 255) ;
                 color: $secondary-font-color;
                 font-weight: 500;
             }
@@ -202,6 +212,7 @@
                 display: none;
                 font-size: 1.4rem;
                 @include list__item-icons;
+                background-color:rgb(228, 240, 255);
             }
 
             .list__item-history-icon {
