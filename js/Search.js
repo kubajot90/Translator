@@ -72,23 +72,9 @@ export class Search {
     languages = languages.filter((lang) =>
       lang.lastElementChild.innerText.includes(text)
     );
-
-    // languages.forEach((lang) => {
-    //   lang.lastElementChild.innerHTML = lang.lastElementChild.innerHTML.replace(
-    //     /[<b></b>]/g,
-    //     ``
-    //   );
-    // });
-
-    // languages.forEach((lang) => {
-    //   lang.lastElementChild.innerHTML = lang.lastElementChild.innerHTML.replace(
-    //     text,
-    //     `<b>${text}</b>`
-    //   );
-    // });
     this.boldSearchText(languages, text);
-
     this.drawList(languages);
+
     if (!languages) this.langListElm.style.height = "781px";
   }
 

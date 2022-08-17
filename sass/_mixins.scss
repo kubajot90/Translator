@@ -24,3 +24,13 @@
     top: 45%;
     transform: translateY(-50%);
 }
+
+@mixin logo-image {
+    height: 24px;
+    margin-top: 3px;
+}
+@mixin logo-subtitle {
+    font-size: 1.3rem;
+    margin-left: 4px;
+    color: $main-font-color;
+}
