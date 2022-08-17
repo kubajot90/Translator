@@ -58,6 +58,7 @@ export class LanguagePanel {
     this.createListItem(languagesList);
     this.htmlElements();
     this.search = new Search(this.languagesListElm, this.languageListItemsElm);
+    this.search.init();
     this.eventlisteners();
     this.buttonText(this.languageButtonsLeftElm, "left");
     this.buttonText(this.languageButtonsRightElm, "right");
@@ -435,7 +436,7 @@ export class LanguagePanel {
       const item = `<li class="list__item" data-code="${property}" data-language-item>
       <span class="material-symbols-outlined list__item-active-icon">done</span>
       <span class="material-symbols-outlined list__item-history-icon">history</span>
-      ${nameLowerCase}
+      <div>${nameLowerCase}</div>
       </li>`;
 
       this.drawList(item);
@@ -443,7 +444,6 @@ export class LanguagePanel {
   }
 
   drawList(item) {
-    // this.languagesListElm = document.querySelector("[data-lang-list]");
     this.languagesListElm.insertAdjacentHTML("beforeend", item);
   }
 

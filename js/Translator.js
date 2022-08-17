@@ -9,6 +9,7 @@ export class Translator {
     this.loaderElm = null;
     this.panelBackgroundElm = null;
     this.textareaXMarkElm = null;
+    this.counterElm = null;
 
     this.fetchTimeout = null;
 
@@ -26,6 +27,8 @@ export class Translator {
     this.languagePanel.init();
     this.navigation = new Navigation();
     this.navigation.init();
+
+    this.lettersCounter = 5000;
   }
 
   init() {
@@ -40,6 +43,7 @@ export class Translator {
     this.loaderElm = document.querySelector("[data-loader]");
     this.panelBackgroundElm = document.querySelector("[data-panel-background]");
     this.textareaXMarkElm = document.querySelector("[data-x-mark]");
+    this.counterElm = document.querySelector("[data-counter]");
     // this.swapLanguageButton = document.querySelector("[data-swap-lang]");
   }
 
@@ -49,6 +53,7 @@ export class Translator {
       this.setApiEndpoint();
       this.delayFetch(this.API__ENDPOINT);
       this.changeDetectButtonText(this.detectedLanguage);
+      this.textCounter();
     });
 
     this.textareaLeftElm.addEventListener("keydown", (e) => {
@@ -157,5 +162,10 @@ export class Translator {
 
   elementHide(element) {
     element.style.display = "none";
+  }
+
+  textCounter() {
+    const number = this.textareaLeftElm.value.length;
+    this.counterElm.textContent = `${number} / 5 000`;
   }
 }

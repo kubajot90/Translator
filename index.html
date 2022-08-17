@@ -87,10 +87,17 @@
 
             <div class="main__lang-panel hide" data-lang-panel>
                 <div class="main__search">
-                    <span class="material-symbols-outlined main__search-arrow-icon">
+                    <span class="material-symbols-outlined main__search-arrow-icon" data-search-arrow>
                         arrow_back
                         </span>
                         <input type="text" class="main__search-input" placeholder="Wyszukaj języki" data-search>
+                        <span class="material-symbols-outlined x-mark-search" data-x-mark-search>
+                            close
+                            </span>
+                    <span class="search-bar-text" data-search-text>
+                        Przetłumacz z:
+                    </span>
+            
                 </div>
                 <ul class="main__lang-list" data-lang-list>
                     <!-- <li class="list__item" data-code="Autodetect" data-language-item>
@@ -106,7 +113,7 @@
             <div class="main__panel" data-main-panel>
                 <div class="main__panel-left">
                     <textarea maxlength="5000" name="" id="" cols="30" rows="10" class="main__textarea-left main__textarea" data-textarea-left></textarea>
-                    <span class="material-symbols-outlined main__panel-x-mark" data-x-mark>
+                    <span class="material-symbols-outlined x-mark" data-x-mark>
                         close
                         </span>
                 </div>
@@ -128,7 +135,7 @@
 
             <div class="main__footer" data-main-footer>
                 <div class="main__footer-left">
-                    <span class="footer-counter">1 / 5 000</span>
+                    <span class="footer-counter" data-counter>0 / 5 000</span>
                     <div class="footer__icon-keboard-box">
                        <img src="./image/keyboard-icon.png" alt="keyboard" class="footer__icon-keyboard"> 
                        <span class="tooltip">Włącz klawiaturę wirtualną</span>

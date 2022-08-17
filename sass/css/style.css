@@ -237,6 +237,36 @@ input {
   color: #5f6368;
   opacity: 1;
 }
+.main .main__lang-panel .main__search .x-mark-search {
+  display: none;
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #5f6368;
+  margin: 16px 13px;
+  padding: 8px;
+  z-index: 2;
+  cursor: pointer;
+}
+.main .main__lang-panel .main__search .x-mark-search:hover {
+  background-color: rgba(237, 237, 237, 0.505);
+  border-radius: 50%;
+}
+.main .main__lang-panel .main__search .search-bar-text {
+  position: absolute;
+  display: none;
+  top: 50px;
+  left: 0;
+  padding-left: 25px;
+  width: 100%;
+  height: 55px;
+  line-height: 55px;
+  font-size: 1.5rem;
+  font-weight: 300;
+  color: black;
+  background-color: white;
+  cursor: pointer;
+  font-family: "Roboto";
+}
 .main .main__lang-panel .main__lang-list {
   display: -webkit-box;
   display: -ms-flexbox;
