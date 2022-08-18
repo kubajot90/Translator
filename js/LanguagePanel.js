@@ -19,7 +19,7 @@ export class LanguagePanel {
     this.rightPanel = null;
     this.swapLanguageButton = null;
     this.swapLanguageIcon = null;
-    // this.searchInputElm = null;
+    this.containerElm = null;
 
     this.sortedObj = {};
 
@@ -79,7 +79,7 @@ export class LanguagePanel {
     this.rightPanel = document.querySelector("[data-right-panel]");
     this.swapLanguageButton = document.querySelector("[data-swap-lang]");
     this.swapLanguageIcon = document.querySelector("[data-swap-lang-icon]");
-    // this.searchInputElm = document.querySelector("[data-search]");
+    this.containerElm = document.querySelector("[data-container]");
 
     this.expandIconsBackgroundElm = document.querySelectorAll(
       "[data-expand-icon-background]"
@@ -116,7 +116,10 @@ export class LanguagePanel {
 
     this.languageListItemsElm.forEach((item) => {
       item.addEventListener("click", (e) => {
-        const languageCode = e.target.dataset.code;
+        const languageCode = e.target.parentElement.dataset.code
+          ? e.target.parentElement.dataset.code
+          : e.target.dataset.code;
+
         this.listItemActive(item);
 
         languageCode === "Autodetect"
@@ -183,6 +186,10 @@ export class LanguagePanel {
         if (this.search.isInputSearch) this.createListItem(languagesList);
         this.search.clearInput();
         this.swapIconEnable();
+
+        if (window.innerWidth < "720") {
+          this.togglePanelVisibility();
+        }
       });
     });
 
@@ -201,12 +208,19 @@ export class LanguagePanel {
         console.log("RIGHT SIDE: " + this.buttonLanguages.right);
         if (this.search.isInputSearch) this.createListItem(languagesList);
         this.search.clearInput();
+
+        if (window.innerWidth < "720") {
+          this.togglePanelVisibility();
+        }
       });
     });
 
-    this.detectButtonElm.addEventListener("click", () =>
-      this.detectButtonActiveClass()
-    );
+    this.detectButtonElm.addEventListener("click", () => {
+      this.detectButtonActiveClass();
+      if (window.innerWidth < "720") {
+        this.togglePanelVisibility();
+      }
+    });
 
     this.swapLanguageButton.addEventListener("click", () => {
       this.swapLanguages();
@@ -216,15 +230,9 @@ export class LanguagePanel {
       console.log("RIGHT SIDE: " + this.buttonLanguages.right);
     });
 
-    // this.searchInputElm.addEventListener("input", () => {
-    //   console.log(this.languagesListElm);
-    //   this.languagesListElm.innerHTML = "";
-    //   // this.languageListItemsElm.forEach((item) => item.remove());
-    //   console.log(this.languagesListElm);
-
-    //   const itemsArray = this.search.searchInList(this.searchInputElm.value);
-    //   this.search.drawList(itemsArray);
-    // });
+    this.search.arrowSearchElm.addEventListener("click", () => {
+      if (window.innerWidth < "720") this.togglePanelVisibility();
+    });
   }
 
   swapLanguages() {
@@ -254,10 +262,9 @@ export class LanguagePanel {
       if (element !== this.buttonLanguages.left[0]) {
         newArrRight.push(element);
         differenceCounterRight++;
-        console.log("push    " + differenceCounterLeft);
       } else if (element === this.buttonLanguages.left[0]) {
         temporaryRight = element;
-        console.log(index);
+
         this.addActiveClass(
           "main__button-lang--active",
           this.rightPanel.querySelector(`[data-code="${element}"]`),
@@ -384,6 +391,7 @@ export class LanguagePanel {
     this.toggleElementVisibility(this.mainPanelElm);
     this.toggleElementVisibility(this.mainFooterElm);
     this.toggleElementVisibility(this.footerElm);
+    this.search.isArrowClick = false;
   }
 
   buttonText(elements, buttonsSide) {

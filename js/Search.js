@@ -31,14 +31,15 @@ export class Search {
         : (this.xMarkSearchElm.style.display = "none");
 
       this.searchInList(this.searchInputElm.value);
-      this.langListElm.style.height = "auto";
+      this.langListElm.classList.add("main__lang-list--small");
     });
 
     this.xMarkSearchElm.addEventListener("click", () => {
       this.xMarkSearchElm.style.display = "none";
       this.searchInputElm.value = "";
       this.searchInList(this.searchInputElm.value);
-      this.langListElm.style.height = "781px";
+      // this.langListElm.style.height = "781px";
+      this.langListElm.classList.remove("main__lang-list--small");
       if (this.isSearchTextDisplay) {
         this.searchTextElm.style.display = "none";
         this.isSearchTextDisplay = false;
@@ -46,12 +47,15 @@ export class Search {
     });
 
     this.arrowSearchElm.addEventListener("click", () => {
-      this.xMarkSearchElm.style.display = "block";
-      this.searchTextElm.style.display = "block";
-      this.isSearchTextDisplay = true;
-      this.searchInputElm.value = "";
-      this.searchInList(this.searchInputElm.value);
-      this.langListElm.style.height = "781px";
+      if (window.innerWidth > "720") {
+        this.xMarkSearchElm.style.display = "block";
+        this.searchTextElm.style.display = "block";
+        this.isSearchTextDisplay = true;
+        this.searchInputElm.value = "";
+        this.searchInList(this.searchInputElm.value);
+        // this.langListElm.style.height = "781px";
+        this.langListElm.classList.remove("main__lang-list--small");
+      }
     });
 
     this.searchTextElm.addEventListener("click", () => {
@@ -69,13 +73,16 @@ export class Search {
     this.langListElm.innerHTML = "";
 
     let languages = [...this.langListItems];
-    languages = languages.filter((lang) =>
-      lang.lastElementChild.innerText.includes(text)
+    languages = languages.filter(
+      (lang) =>
+        lang.lastElementChild.innerText.includes(text) &&
+        lang.dataset.code != "Autodetect"
     );
+    console.log(languages);
     this.boldSearchText(languages, text);
     this.drawList(languages);
 
-    if (!languages) this.langListElm.style.height = "781px";
+    if (!languages) this.langListElm.classList.remove("main__lang-list--small");
   }
 
   boldSearchText(array, text) {

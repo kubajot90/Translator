@@ -30,7 +30,7 @@ export class Navigation {
       this.showLeftNavigation()
     );
 
-    document.addEventListener("wheel", () => this.hideLeftNavigation());
+    window.addEventListener("wheel", () => this.hideLeftNavigation());
 
     this.containerElm.addEventListener("click", () =>
       this.hideLeftNavigation()

@@ -1,5 +1,11 @@
 .header__buttons-box {
-
+    width: 90%;
+    max-width: 1260px;
+    margin: 0 auto;
+    @media (max-width: 1260px){
+       width: 100%;
+       margin-left: 8px;
+    }
     .header__button {
         display: inline-flex;
         align-items: flex-start; 
@@ -11,6 +17,8 @@
         padding: 7px 13px;
         cursor: pointer;
         transition: .1s;
+
+       
 
         &:hover {
             background-color: $hover-background-blue-color;

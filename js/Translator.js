@@ -124,7 +124,9 @@ export class Translator {
     this.secondLanguage = this.languagePanel.currentLanguage.right;
     console.log("first lang: " + this.firstLanguage);
     console.log("second lang: " + this.secondLanguage);
+
     this.API__ENDPOINT = `${this.API}/get?q=${this.textToTranslate}!&langpair=${this.firstLanguage}|${this.secondLanguage}`;
+    console.log("API: " + this.API__ENDPOINT);
   }
 
   displayText(text) {
