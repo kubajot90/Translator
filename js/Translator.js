@@ -10,6 +10,7 @@ export class Translator {
     this.panelBackgroundElm = null;
     this.textareaXMarkElm = null;
     this.counterElm = null;
+    this.panelRightElm = null;
 
     this.fetchTimeout = null;
 
@@ -44,7 +45,7 @@ export class Translator {
     this.panelBackgroundElm = document.querySelector("[data-panel-background]");
     this.textareaXMarkElm = document.querySelector("[data-x-mark]");
     this.counterElm = document.querySelector("[data-counter]");
-    // this.swapLanguageButton = document.querySelector("[data-swap-lang]");
+    this.panelRightElm = document.querySelector("[data-panel-right]");
   }
 
   eventlisteners() {
@@ -54,6 +55,9 @@ export class Translator {
       this.delayFetch(this.API__ENDPOINT);
       this.changeDetectButtonText(this.detectedLanguage);
       this.textCounter();
+      console.log(this.textareaLeftElm.value);
+      // if (this.textareaLeftElm.value == "")
+      //   this.elementHide(this.panelRightElm);
     });
 
     this.textareaLeftElm.addEventListener("keydown", (e) => {
@@ -66,13 +70,8 @@ export class Translator {
       this.languagePanel.hideDetectButtonAfter();
       this.elementHide(this.textareaXMarkElm);
       this.elementHide(this.panelBackgroundElm);
+      this.elementHide(this.panelRightElm);
     });
-
-    // this.swapLanguageButton.addEventListener("click", () => {
-    //   const temporary = this.firstLanguage;
-    //   this.firstLanguage = this.secondLanguage;
-    //   this.secondLanguage = temporary;
-    // });
   }
 
   delayFetch(endpoint) {
@@ -112,6 +111,8 @@ export class Translator {
       console.log("ERROR");
       console.log(err);
     }
+
+    this.elementShow(this.panelRightElm);
   }
 
   setApiEndpoint() {

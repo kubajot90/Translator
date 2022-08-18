@@ -15,7 +15,13 @@
     font-weight: 400;
     color: $main-font-input-color;
     font-family: 'Roboto';
-    // letter-spacing: 1px;
+    @media (max-width: 720px){
+        position: static;
+        height: 169px;
+        width: 100%;
+        border-right: none;
+        
+    }
 }
 
 @mixin list__item-icons {

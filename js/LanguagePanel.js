@@ -188,6 +188,7 @@ export class LanguagePanel {
         this.swapIconEnable();
 
         if (window.innerWidth < "720") {
+          this.languageExpandButtonleftClick = true;
           this.togglePanelVisibility();
         }
       });
@@ -210,6 +211,7 @@ export class LanguagePanel {
         this.search.clearInput();
 
         if (window.innerWidth < "720") {
+          this.languageExpandButtonleftClick = false;
           this.togglePanelVisibility();
         }
       });
@@ -218,6 +220,7 @@ export class LanguagePanel {
     this.detectButtonElm.addEventListener("click", () => {
       this.detectButtonActiveClass();
       if (window.innerWidth < "720") {
+        this.languageExpandButtonleftClick = true;
         this.togglePanelVisibility();
       }
     });
@@ -322,6 +325,11 @@ export class LanguagePanel {
       this.leftPanel
     );
     this.swapIconDisable();
+    this.changeClass(
+      "remove",
+      this.detectButtonAfterElm,
+      "main__button-lang--active"
+    );
   }
 
   addActiveClass(className, ofElement, inElement) {
@@ -337,11 +345,18 @@ export class LanguagePanel {
       this.detectButtonAfterElm,
       "main__button-lang--active"
     );
+    this.changeClass(
+      "remove",
+      this.detectButtonElm,
+      "main__button-lang--active"
+    );
   }
 
   hideDetectButtonAfter() {
     this.detectButtonElm.classList.remove("hide");
     this.detectButtonAfterElm.style.display = "none";
+
+    this.changeClass("add", this.detectButtonElm, "main__button-lang--active");
   }
 
   checkButtonExpandClick() {
