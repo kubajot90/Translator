@@ -56,8 +56,11 @@ export class Translator {
       this.changeDetectButtonText(this.detectedLanguage);
       this.textCounter();
       console.log(this.textareaLeftElm.value);
-      // if (this.textareaLeftElm.value == "")
-      //   this.elementHide(this.panelRightElm);
+      if (!this.textareaLeftElm.value) {
+        this.hidePanel();
+      } else {
+        this.elementShow(this.panelRightElm);
+      }
     });
 
     this.textareaLeftElm.addEventListener("keydown", (e) => {
@@ -70,7 +73,7 @@ export class Translator {
       this.languagePanel.hideDetectButtonAfter();
       this.elementHide(this.textareaXMarkElm);
       this.elementHide(this.panelBackgroundElm);
-      this.elementHide(this.panelRightElm);
+      this.hidePanel();
     });
   }
 
@@ -91,8 +94,6 @@ export class Translator {
       const parsedResponse = await response.json();
 
       if (this.languagePanel.isLanguageAutodetect) {
-        console.log(parsedResponse.responseData);
-
         const detectedLanguage = parsedResponse.responseData.detectedLanguage
           ? parsedResponse.responseData.detectedLanguage
           : this.languagePanel.hideDetectButtonAfter();
@@ -112,7 +113,7 @@ export class Translator {
       console.log(err);
     }
 
-    this.elementShow(this.panelRightElm);
+    // this.elementShow(this.panelRightElm);
   }
 
   setApiEndpoint() {
@@ -170,5 +171,11 @@ export class Translator {
   textCounter() {
     const number = this.textareaLeftElm.value.length;
     this.counterElm.textContent = `${number} / 5 000`;
+  }
+
+  hidePanel() {
+    if (window.innerWidth < "720") {
+      this.elementHide(this.panelRightElm);
+    }
   }
 }
