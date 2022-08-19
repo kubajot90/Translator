@@ -1,6 +1,7 @@
 import { LanguagePanel } from "./LanguagePanel.js";
 import { languagesList } from "./languagesList.js";
 import { Navigation } from "./Navigation.js";
+import { FooterIcons } from "./FooterIcons.js";
 
 export class Translator {
   constructor() {
@@ -28,6 +29,8 @@ export class Translator {
     this.languagePanel.init();
     this.navigation = new Navigation();
     this.navigation.init();
+    this.footerIcons = new FooterIcons();
+    this.footerIcons.init();
 
     this.lettersCounter = 5000;
   }

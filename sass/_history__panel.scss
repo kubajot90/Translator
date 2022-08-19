@@ -1,0 +1,32 @@
+.history__panel{
+    @include sliding-panel;
+    font-family: 'Roboto';
+    font-weight: 300;
+    .history__title {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        margin-top: 64px;
+        padding: 22px;
+        font-size: 1.7rem;
+        color: black;
+       
+    }
+
+    .history__subtitle {
+
+    }
+
+    .history__content {
+
+    }
+
+    .history__footer {
+
+    }
+}
+
+.history__panel--show {
+    display: block;
+}

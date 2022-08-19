@@ -1,0 +1,8 @@
+.save__panel{
+    @include sliding-panel;
+    
+}
+
+.save__panel--show {
+    display: block;
+}

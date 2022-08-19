@@ -70,20 +70,30 @@
                 <button class="main__button-lang" data-buttons-lang-left>POLSKI</button>
                 <button class="main__button-lang" data-buttons-lang-left>ANGIELSKI</button>
                 <button class="main__button-lang" data-buttons-lang-left>NIEMIECKI</button>
-                <button class="main__button-lang-expand" >
+                <!-- <button class="main__button-lang-expand" >
                     <span class="expand-icon-background" data-expand-icon-background></span>
                     <span class="material-symbols-outlined expand-icon" data-button-lang-expand>
                         expand_more
                         </span>
-                </button>
+                </button> -->
             </div>
 
-            <button class="swap-lang__button" data-swap-lang>
+        <div class="swap-lang__box">
+
+            <button class="main__button-lang-expand main__button-lang-expand-left" >
+                <span class="expand-icon-background expand-icon-background-left" data-expand-icon-background></span>
+                <span class="material-symbols-outlined expand-icon expand-icon-left" data-button-lang-expand>
+                    expand_more
+                    </span>
+            </button>
+
+            <button class="swap-lang__button" data-swap-lang>             
                 <span class="material-symbols-outlined swap-lang__icon" data-swap-lang-icon>
                     sync_alt
                 </span>
                 <span class="tooltip ">Zamiana języków (ctrl + Shift + S)</span>
             </button>
+        </div>
 
             <div class="main__header-right" data-right-panel>
                 <button class="main__button-lang main__button-lang--active" data-buttons-lang-right>POLSKI</button>
@@ -163,23 +173,31 @@
         </main>  
         <footer class="footer" data-footer>
             
-                <button class="footer__icon-box">
-                    <span class="material-symbols-outlined footer__icon">
+                <button class="footer__icon-box" >
+                    <span class="material-symbols-outlined footer__icon"data-history-button>
                         history
                     </span>
-                    <span class="footer__icon-subtitle">Historia</span>
+                    <span class="footer__icon-subtitle" data-history-subtitle>Historia</span>
                 </button>
                 
-                <button class="footer__icon-box">
-                    <span class="material-symbols-outlined footer__icon">
+                <button class="footer__icon-box" >
+                    <span class="material-symbols-outlined footer__icon"data-save-button>
                         star
                         </span>
-                    <span class="footer__icon-subtitle">Zapisane</span>
+                    <span class="footer__icon-subtitle" data-save-subtitle>Zapisane</span>
                 </button>
            
         </footer> 
     </div>
-    <div class="history__panel"></div>
+    <div class="history__panel history__panel--show" data-history-panel>
+        <div class="history__title">
+            <p>Historia</p>
+        </div>
+        <div class="history__subtitle"></div>
+        <div class="history__content"></div>
+        <div class="history__footer"></div>
+    </div>
+    <div class="save__panel" data-save-panel></div>
 </div>
     
     

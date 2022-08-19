@@ -8,7 +8,7 @@
        border-radius: 50%;
        border: none;
        background-color: transparent;
-       cursor: pointer;
+      
 
         .footer__icon {
             display: block;
@@ -20,11 +20,21 @@
             background-color: transparent;
             color: #757575;;
             margin: 29px 30px 10px 30px;
+            cursor: pointer;
             
+        }
+
+        .footer__icon--active {
+            background-color: $hover-background-blue-color;
+            color: $secondary-font-color;
+            border: solid 1px transparent;
         }
 
         }
         .footer__icon-subtitle {
             font-size: .9rem;
+        }
+        .footer__icon-subtitle--active {
+            color: $secondary-font-color;
         }
 }
