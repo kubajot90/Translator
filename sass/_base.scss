@@ -8,6 +8,7 @@
 button {
     border: none;
     background-color: transparent;
+    cursor: pointer;
 }
 
 textarea {
@@ -24,9 +25,13 @@ display: flex;
 }
 
 .container {
-    width: 100%;
+    // width: 100%;
+    width: 65%;
     max-width: $max-width;
-    margin: 66.66px auto 0 auto;    
+    margin: 66.66px auto 0 auto; 
+    @media (max-width: 1260px){
+        width: 100%;
+    }
 }
 
 .line {

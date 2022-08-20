@@ -8,7 +8,6 @@
     max-width: 1260px;
     min-height: 220px;
     border-radius: 9px;
-    // margin-bottom: 60px;
     box-shadow: 0 1px 4px 0 rgba(0,0,0,.37);
     background-color: #fff;
     @media (max-width: 1260px){
@@ -30,6 +29,7 @@
         width: 100%;
         top: 0;
         border-bottom: 1px solid $main-border-color;
+        overflow: hidden;
 
     } 
     .main__header-left, .main__header-right {
@@ -41,7 +41,11 @@
         border-radius: 20px;
         @media (max-width: 720px){
             justify-content: center;
+            // width: 47%;
         }
+        // @media (min-width: 1260px){
+        //     width: 47%;
+        // }
      }
 
     .main__button-lang {
@@ -210,18 +214,10 @@
 
            .x-mark-search {
             display: none;
-            font-size: 1.4rem;
-            font-weight: bold;
-            color: $main-font-color;
-            margin: 16px 13px;
-            padding: 8px;
+            @include x-mark;
             z-index: 100;
             cursor: pointer;
 
-            &:hover {
-                background-color: rgba(237, 237, 237, 0.505);
-                border-radius: 50%;
-            }
            }
 
            .search-bar-text {
@@ -349,17 +345,8 @@
                 position: absolute;
                 top: 0;
                 right: 0;
-                font-size: 1.4rem;
-                font-weight: bold;
-                color: $main-font-color;
-                margin: 16px 13px;
-                padding: 8px;
-                cursor: pointer;
-                &:hover {
-                    
-                    background-color: rgba(237, 237, 237, 0.505);
-                    border-radius: 50%;
-                }
+                @include x-mark;
+               
             }
            
         }
