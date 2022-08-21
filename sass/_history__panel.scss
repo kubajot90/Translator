@@ -2,9 +2,10 @@
     @include sliding-panel;
     font-family: 'Roboto';
     font-weight: 300;
-
     .history__title {
         position: relative;
+        display: flex;
+        align-items: center;
         top: 0;
         left: 0;
         width: 100%;
@@ -13,6 +14,28 @@
         font-size: 1.7rem;
         color: black;
         border-bottom: 1px solid $main-border-color;
+        @media (max-width: 720px){
+            margin-top: 0;
+            font-size: 1.1rem;
+            padding: 3px;
+        }
+
+        .history__arrow {
+            display: none;
+            font-weight: bold;
+            font-size:  1.4rem;
+            padding: 9px;
+            color: $main-font-color;
+            cursor: pointer;
+            &:hover {
+                background-color: rgba(237, 237, 237, 0.505);
+                border-radius: 50%;
+            }
+            @media (max-width: 720px){
+                display: block;
+                margin-right: 13px;
+            }
+        }
 
         .history__title-p {
             display: inline-block;
@@ -24,6 +47,9 @@
             top: -5px;
             right: 0px;
             @include x-mark;
+            @media (max-width: 720px){
+                display: none;
+            }
         }
        
     }
@@ -130,7 +156,7 @@
     }
 
 }
-.history__panel--show {
+.panel--show {
     display: flex;
     flex-direction: column;
 }
