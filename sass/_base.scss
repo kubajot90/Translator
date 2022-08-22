@@ -47,3 +47,13 @@ display: flex;
 .hide  {
     display: none !important;
 }
+
+@keyframes clickAnimation{
+    0% {
+        transform: scaleX(0);
+    }
+    100%{
+        transform: scaleX(1);
+    }
+    
+}

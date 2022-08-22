@@ -1,10 +1,11 @@
-.history__panel{
+.panel{
     @include sliding-panel;
     font-family: 'Roboto';
     font-weight: 300;
-    .history__title {
+    .panel__title {
         position: relative;
         display: flex;
+        flex-wrap: wrap;
         align-items: center;
         top: 0;
         left: 0;
@@ -20,7 +21,7 @@
             padding: 3px;
         }
 
-        .history__arrow {
+        .panel__arrow {
             display: none;
             font-weight: bold;
             font-size:  1.4rem;
@@ -37,11 +38,11 @@
             }
         }
 
-        .history__title-p {
+        .panel__title-p {
             display: inline-block;
         }
 
-        .x-mark-history {
+        .x-mark-panel {
             position: absolute;
             display: inline-block;
             top: -5px;
@@ -54,14 +55,14 @@
        
     }
 
-    .history__subtitle {
+    .panel__subtitle {
         display: flex;
         justify-content: flex-end;
         border-bottom: 1px solid $main-border-color;
         width: 100%;
         padding: 10px;
 
-        .history__clear-button{
+        .panel__clear-button{
             background-color: transparent;
             top: 0;
             right: 0;
@@ -76,15 +77,15 @@
         }
     }
 
-    .history__content {
+    .panel__content {
         flex-grow: 1;
         overflow: auto;
 
-        .history__list{
+        .panel__list{
 
         }
 
-        .history__item{
+        .panel__item{
             padding: 4px 4px 4px 18px;
             border-bottom: 1px solid $main-border-color;
             font-size: .85rem;
@@ -96,6 +97,7 @@
             .item__header{
                 display: flex;
                 justify-content: space-between;
+                align-items: center;
                 
                 .item__lang-box{
                     display: flex;
@@ -146,7 +148,7 @@
         
     }
 }
-    .history__footer {
+    .panel__footer {
         position: absolute;
         bottom: 0;
         width: 100%;
