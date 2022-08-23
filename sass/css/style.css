@@ -221,8 +221,9 @@ input {
 }
 .main .main__button-lang-expand-left {
   position: absolute;
-  top: 4px;
+  top: 0px;
   left: -70px;
+  height: 100%;
   margin-left: 0;
   padding-right: 50px;
   background-color: white;
@@ -544,6 +545,7 @@ input {
   }
 }
 .main .main__panel .main__panel-right .main__panel-star-box .main__panel-star-icon {
+  display: none;
   font-size: 1.6rem;
   color: #5f6368;
   margin: 16px 13px;
@@ -625,6 +627,7 @@ input {
   right: 12px;
 }
 .main .main__footer .main__footer-right .main__footer-copy-icon {
+  display: none;
   padding: 8px;
   font-weight: bold;
   cursor: pointer;
@@ -845,7 +848,7 @@ input {
   transition: 0.1s;
 }
 .header__buttons-box .header__button:hover {
-  background-color: rgba(25, 102, 210, 0.0431372549);
+  background-color: rgba(25, 102, 210, 0.0784313725);
   color: #0e4faa;
 }
 .header__buttons-box .header__button .header__button-icon {
@@ -884,7 +887,7 @@ input {
   cursor: pointer;
 }
 .footer .footer__icon-box .footer__icon--active {
-  background-color: rgba(25, 102, 210, 0.0431372549);
+  background-color: rgba(25, 102, 210, 0.0784313725);
   color: #1a73e8;
   border: solid 1px transparent;
 }
@@ -1012,7 +1015,7 @@ input {
   color: #1a73e8;
 }
 .panel .panel__subtitle .panel__clear-button:hover {
-  background-color: rgba(25, 102, 210, 0.0431372549);
+  background-color: rgba(25, 102, 210, 0.0784313725);
   color: #1a5dba;
 }
 .panel .panel__content {
@@ -1113,11 +1116,35 @@ input {
 }
 
 .save__panel .save__panel-title {
-  padding: 26px 7px 7px 20px;
+  padding: 26px 12px 7px 20px;
+}
+@media (max-width: 720px) {
+  .save__panel .save__panel-title {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    padding: 2px;
+  }
+}
+.save__panel .save__panel-title .panel__title-box {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 .save__panel .save__panel-title .save__panel-title-p {
   margin-left: 10px;
   margin-bottom: 13px;
+}
+@media (max-width: 720px) {
+  .save__panel .save__panel-title .save__panel-title-p {
+    margin: 0;
+  }
 }
 .save__panel .save__panel-title .title__options {
   display: -webkit-box;
@@ -1137,6 +1164,11 @@ input {
   background-color: rgba(237, 237, 237, 0.505);
   border-radius: 50%;
 }
+@media (max-width: 720px) {
+  .save__panel .save__panel-title .title__options .title__loup-icon {
+    margin-right: 3px;
+  }
+}
 .save__panel .save__panel-title .title__options .options__sort {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -1155,9 +1187,62 @@ input {
 .save__panel .save__panel-title .title__options .options__sort:hover {
   background-color: rgba(237, 237, 237, 0.393);
 }
+@media (max-width: 720px) {
+  .save__panel .save__panel-title .title__options .options__sort {
+    border-radius: 50%;
+    padding: 10px;
+  }
+}
 .save__panel .save__panel-title .title__options .options__sort .sort__text {
   font-size: 0.85rem;
   font-weight: 500;
+}
+@media (max-width: 720px) {
+  .save__panel .save__panel-title .title__options .options__sort .sort__icon, .save__panel .save__panel-title .title__options .options__sort .sort__text {
+    display: none;
+  }
+}
+.save__panel .save__panel-title .title__options .options__sort .sort__icon--mobile {
+  display: none;
+  font-weight: bold;
+}
+@media (max-width: 720px) {
+  .save__panel .save__panel-title .title__options .options__sort .sort__icon--mobile {
+    display: block;
+  }
+}
+.save__panel .save__panel-title .title__options .options__sort .sort__menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  font-size: 1rem;
+  padding: 8px 0;
+  white-space: nowrap;
+  border-radius: 5px;
+  border: 1px solid rgb(221, 221, 221);
+  -webkit-box-shadow: 0 3px 12px rgba(0, 0, 0, 0.259);
+          box-shadow: 0 3px 12px rgba(0, 0, 0, 0.259);
+  background-color: white;
+}
+.save__panel .save__panel-title .title__options .options__sort .sort__menu .sort__data, .save__panel .save__panel-title .title__options .options__sort .sort__menu .sort__alphabet {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 12px;
+  width: 100%;
+}
+.save__panel .save__panel-title .title__options .options__sort .sort__menu .sort__data:hover, .save__panel .save__panel-title .title__options .options__sort .sort__menu .sort__alphabet:hover {
+  background-color: rgba(25, 102, 210, 0.0784313725);
+}
+.save__panel .save__panel-title .title__options .options__sort .sort__menu .check__icon {
+  color: #1a73e8;
+  font-weight: bold;
+  margin-right: 13px;
+  margin-left: 3px;
 }
 .save__panel .save__panel-title .title__options .title__dots {
   font-weight: bold;
@@ -1169,6 +1254,57 @@ input {
 .save__panel .save__panel-title .title__options .title__dots:hover {
   background-color: rgba(237, 237, 237, 0.505);
   border-radius: 50%;
+}
+@media (max-width: 720px) {
+  .save__panel .save__panel-title .title__options {
+    -ms-flex-preferred-size: auto;
+        flex-basis: auto;
+  }
+}
+.save__panel .save__panel-title .title__search {
+  display: none;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: relative;
+}
+.save__panel .save__panel-title .title__search .title__loup-icon {
+  position: absolute;
+  color: #5f6368;
+  font-weight: bold;
+  font-size: 1.4rem;
+  margin-left: 12px;
+}
+.save__panel .save__panel-title .title__search .title__input {
+  width: 100%;
+  padding: 5px 0 5px 50px;
+  border-radius: 4px;
+  background-color: rgb(237, 237, 237);
+}
+.save__panel .save__panel-title .title__search .title__input::-webkit-input-placeholder {
+  font-size: 1rem;
+  color: #3c4043;
+}
+.save__panel .save__panel-title .title__search .title__input::-moz-placeholder {
+  font-size: 1rem;
+  color: #3c4043;
+}
+.save__panel .save__panel-title .title__search .title__input:-ms-input-placeholder {
+  font-size: 1rem;
+  color: #3c4043;
+}
+.save__panel .save__panel-title .title__search .title__input::-ms-input-placeholder {
+  font-size: 1rem;
+  color: #3c4043;
+}
+.save__panel .save__panel-title .title__search .title__input::placeholder {
+  font-size: 1rem;
+  color: #3c4043;
+}
+.save__panel .save__panel-title .title__search .x-mark-panel.x-mark__search-input {
+  margin: 0;
+  top: 0;
+  right: 0;
 }
 .save__panel .save__panel-subtitle {
   -webkit-box-pack: justify;

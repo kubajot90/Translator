@@ -143,7 +143,7 @@
                         <span class="loader textarea__placeholder" data-loader>...</span>
                     </div>
                     <div class="main__panel-star-box">
-                        <span class="material-symbols-outlined main__panel-star-icon">
+                        <span class="material-symbols-outlined main__panel-star-icon" data-main-panel-star>
                         grade
                         </span>
                         <span class="tooltip tooltip-star ">Zapisz tłumaczenie</span>
@@ -165,7 +165,7 @@
                         </span>
                 </div>
                 <div class="main__footer-right">
-                    <span class="material-symbols-outlined main__footer-copy-icon">
+                    <span class="material-symbols-outlined main__footer-copy-icon" data-copy-icon>
                         content_copy
                         </span>
                         <span class="tooltip tooltip-copy ">Kopiuj tłumaczenie</span>
@@ -243,28 +243,54 @@
 
     <div class="save__panel panel panel--show" data-save-panel>
         <div class="panel__title save__panel-title">
-            <span class="material-symbols-outlined panel__arrow">
-                arrow_back
-                </span>
-           <p class="panel__title-p save__panel-title-p">Zapisane</p> 
+            <div class="panel__title-box">
+                <span class="material-symbols-outlined panel__arrow">
+                    arrow_back
+                    </span>
+            <p class="panel__title-p save__panel-title-p">Zapisane</p> 
+            </div>
            <span class="material-symbols-outlined x-mark-panel" data-x-mark-panel>
             close
             </span>
         <div class="title__options">
+                <span class="material-symbols-outlined title__loup-icon">
+                    search
+                </span>
+
+                <div class="options__sort">
+                    <span class="sort__text">Sortuj</span>
+                    <span class="material-symbols-outlined sort__icon">
+                    arrow_drop_down
+                    </span>
+                    <span class="material-symbols-outlined sort__icon--mobile">
+                        sort
+                        </span>
+                    <div class="sort__menu">
+                        <span class="sort__data">
+                            <span class="material-symbols-outlined check__icon">
+                                done
+                                </span>
+                            Sortuj według daty</span>
+                        <span class="sort__alphabet">
+                            <span class="material-symbols-outlined check__icon">
+                                done
+                                </span>
+                            Sortuj alfabetycznie</span>
+                    </div>
+                </div>
+                
+                <span class="material-symbols-outlined title__dots">
+                        more_vert
+                </span>    
+        </div>
+        <div class="title__search">
             <span class="material-symbols-outlined title__loup-icon">
                 search
             </span>
-            <div class="options__sort">
-                <div class="options__sort-after"></div>
-                <span class="sort__text">Sortuj</span>
-                <span class="material-symbols-outlined sort__icon">
-                arrow_drop_down
+            <input type="text" placeholder="Szukaj" class="title__input">
+            <span class="material-symbols-outlined x-mark-panel x-mark__search-input" >
+                close
                 </span>
-            </div>
-            
-            <span class="material-symbols-outlined title__dots">
-                    more_vert
-            </span>    
         </div>
         </div>
         <div class="panel__subtitle save__panel-subtitle">
@@ -283,7 +309,7 @@
             
         </div>
         <div class="panel__content">
-            <ul class="panel__list">
+            <ul class="panel__list" data-save-list>
                 
                 <li class="panel__item">
                     <div class="item__header">

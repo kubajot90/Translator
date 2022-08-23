@@ -7,6 +7,7 @@ export class FooterIcons {
     this.saveButtonElm = null;
     this.savePanelElm = null;
     this.saveSubtitleElm = null;
+    this.saveListElm = null;
   }
 
   init() {
@@ -50,6 +51,8 @@ export class FooterIcons {
     this.saveButtonElm = document.querySelector("[data-save-button]");
 
     this.saveSubtitleElm = document.querySelector("[data-save-subtitle]");
+
+    this.saveListElm = document.querySelector("[data-save-list]");
   }
 
   eventlisteners() {
@@ -76,5 +79,30 @@ export class FooterIcons {
     this.savePanelElm.classList.toggle("panel--show");
     this.saveButtonElm.classList.toggle("footer__icon--active");
     this.saveSubtitleElm.classList.toggle("footer__icon-subtitle--active");
+  }
+
+  createSaveItem(firstLang, secondLang, textFrom, textTo) {
+    const item = document.createElement("li");
+    item.classList.add("panel__item");
+    item.innerHTML = `<div class="item__header">
+        <div class="item__lang-box">
+            <span class="translate__from">${firstLang}</span>
+            <span class="material-symbols-outlined item__arrow">
+            trending_flat
+            </span>
+            <span class="translate__to">${secondLang}</span>
+        </div>
+        
+        <div class="item__icon-box">
+                <span class="material-symbols-sharp item__star">
+                    star
+                    </span>
+        </div>   
+      </div>
+      <div class="item__content">
+          <span class="text__from">${textFrom}</span>
+          <span class="text__to">${textTo}</span>
+      </div>`;
+    this.saveListElm.appendChild(item);
   }
 }

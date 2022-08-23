@@ -12,6 +12,8 @@ export class Translator {
     this.textareaXMarkElm = null;
     this.counterElm = null;
     this.panelRightElm = null;
+    this.panelStarIconElm = null;
+    this.panelCopyIconElm = null;
 
     this.fetchTimeout = null;
 
@@ -19,6 +21,7 @@ export class Translator {
     this.secondLanguage = null;
     this.detectedLanguage = "";
     this.textToTranslate = null;
+    this.translatedText = null;
 
     this.API = "https://api.mymemory.translated.net";
     this.API__ENDPOINT = null;
@@ -49,6 +52,8 @@ export class Translator {
     this.textareaXMarkElm = document.querySelector("[data-x-mark]");
     this.counterElm = document.querySelector("[data-counter]");
     this.panelRightElm = document.querySelector("[data-panel-right]");
+    this.panelStarIconElm = document.querySelector("[data-main-panel-star]");
+    this.panelCopyIconElm = document.querySelector("[data-copy-icon]");
   }
 
   eventlisteners() {
@@ -58,9 +63,11 @@ export class Translator {
       this.delayFetch(this.API__ENDPOINT);
       this.changeDetectButtonText(this.detectedLanguage);
       this.textCounter();
-      console.log(this.textareaLeftElm.value);
+
       if (!this.textareaLeftElm.value) {
         this.hidePanel();
+        this.elementHide(this.panelStarIconElm);
+        this.elementHide(this.panelCopyIconElm);
       } else {
         this.elementShow(this.panelRightElm);
       }
@@ -77,7 +84,32 @@ export class Translator {
       this.elementHide(this.textareaXMarkElm);
       this.elementHide(this.panelBackgroundElm);
       this.hidePanel();
+      this.elementHide(this.panelStarIconElm);
+      this.elementHide(this.panelCopyIconElm);
     });
+
+    this.panelStarIconElm.addEventListener("click", () => {
+      const firstLanguage =
+        languagesList[
+          this.languagePanel.buttonLanguages.left[0]
+        ].name.toLowerCase();
+
+      const secondLanguage =
+        languagesList[
+          this.languagePanel.buttonLanguages.right[0]
+        ].name.toLowerCase();
+
+      this.footerIcons.createSaveItem(
+        firstLanguage,
+        secondLanguage,
+        this.textToTranslate,
+        this.translatedText
+      );
+    });
+
+    // this.panelCopyIconElm.addEventListener("click", () =>
+    //   this.footerIcons.
+    // );
   }
 
   delayFetch(endpoint) {
@@ -109,14 +141,18 @@ export class Translator {
         ? this.displayText(this.textToTranslate)
         : this.displayText(parsedResponse.responseData.translatedText);
 
+      // this.translatedText = parsedResponse.responseData.translatedText;
+      console.log("----------------------------");
+      console.log(parsedResponse.responseData.translatedText);
+
       this.elementHide(this.loaderElm);
       this.elementShow(this.panelBackgroundElm);
+      this.elementShow(this.panelStarIconElm);
+      this.elementShow(this.panelCopyIconElm);
     } catch (err) {
       console.log("ERROR");
       console.log(err);
     }
-
-    // this.elementShow(this.panelRightElm);
   }
 
   setApiEndpoint() {
@@ -138,11 +174,12 @@ export class Translator {
     if (text === "!" || text.slice(-2) === "!#") {
       this.textareaRightElm.textContent = "";
     } else {
+      // this.textareaRightElm.textContent = text.replace("!", "");
       this.textareaRightElm.textContent = text.replace("!", "");
+      this.translatedText = text.replace("!", "");
     }
     this.changeDetectButtonText(this.detectedLanguage);
     this.resetTextareaRight();
-    // this.languagePanel.hideDetectButtonAfter();
   }
 
   changeDetectButtonText(text) {

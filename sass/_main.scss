@@ -128,8 +128,10 @@
 
     .main__button-lang-expand-left {
         position: absolute;
-        top: 4px;
+        // top: 4px;
+        top: 0px;
         left: -70px;
+        height: 100%;
         margin-left: 0;
         padding-right: 50px;
         background-color: white;
@@ -370,6 +372,8 @@
                     }
 
                 .main__panel-star-icon {
+                    // visibility: hidden;
+                    display: none;
                     font-size: 1.6rem;
                     color: $main-font-color;
                     margin: 16px 13px;
@@ -460,6 +464,7 @@
             bottom: 12px;
             right: 12px;
             .main__footer-copy-icon {
+                display: none;
                 padding: 8px;
                 font-weight: bold;
                 cursor: pointer;
