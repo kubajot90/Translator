@@ -89,10 +89,15 @@ export class Translator {
     });
 
     this.panelStarIconElm.addEventListener("click", () => {
-      const firstLanguage =
-        languagesList[
-          this.languagePanel.buttonLanguages.left[0]
-        ].name.toLowerCase();
+      const firstLanguage = this.languagePanel.isLanguageAutodetect
+        ? `Wykryto: ${this.detectedLanguage.toLowerCase()}`
+        : languagesList[
+            this.languagePanel.buttonLanguages.left[0]
+          ].name.toLowerCase();
+      // const firstLanguage =
+      //   languagesList[
+      //     this.languagePanel.buttonLanguages.left[0]
+      //   ].name.toLowerCase();
 
       const secondLanguage =
         languagesList[
@@ -140,10 +145,6 @@ export class Translator {
       parsedResponse.responseStatus === "403"
         ? this.displayText(this.textToTranslate)
         : this.displayText(parsedResponse.responseData.translatedText);
-
-      // this.translatedText = parsedResponse.responseData.translatedText;
-      console.log("----------------------------");
-      console.log(parsedResponse.responseData.translatedText);
 
       this.elementHide(this.loaderElm);
       this.elementShow(this.panelBackgroundElm);

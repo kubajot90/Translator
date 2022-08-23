@@ -201,7 +201,7 @@ export class LanguagePanel {
           e.target,
           this.rightPanel
         );
-        this.hideDetectButtonAfter();
+        // this.hideDetectButtonAfter();
         const languageCode = e.target.dataset.code;
         this.changeLanguage(languageCode, "right");
         this.checkButtonExpandClick();
