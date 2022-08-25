@@ -82,7 +82,7 @@ function itemTemplate(itemObj) {
   </div>
   
   <div class="item__icon-box">
-          <span class="material-symbols-sharp item__star">
+          <span class="material-symbols-sharp item__star" data-item-remove-button>
               star
               </span>
   </div>   

@@ -34,7 +34,7 @@ export class FooterPanel {
   init() {
     this.htmlElements();
     this.eventlisteners();
-    this.addItemToList(this.saveListElm, this.saveItemArr);
+    this.addItemsToList(this.saveListElm, this.saveItemArr);
 
     // clickAnimation(ClassSelector){
     //   ClassSelector = document.querySelector(".options__sort");
@@ -149,9 +149,10 @@ export class FooterPanel {
       this.saveSortMenuElm.classList.add("hide");
     });
 
-    this.saveTitleDotsTextElm.addEventListener("click", () =>
-      this.clearPanelList(this.saveListElm, this.saveItemArr)
-    );
+    this.saveTitleDotsTextElm.addEventListener("click", () => {
+      this.clearPanelList(this.saveListElm, this.saveItemArr);
+      this.subtitleCounter();
+    });
   }
 
   toggleHistoryPanel() {
@@ -191,7 +192,7 @@ export class FooterPanel {
         </div>
         
         <div class="item__icon-box">
-                <span class="material-symbols-sharp item__star">
+                <span class="material-symbols-sharp item__star" data-item-remove-button>
                     star
                     </span>
         </div>   
@@ -205,8 +206,28 @@ export class FooterPanel {
     this.saveItemArr.unshift(itemObj);
   }
 
-  addItemToList(list, arr) {
-    arr.forEach((item) => list.appendChild(item.content));
+  addItemsToList(list, arr) {
+    arr.forEach((item, index) => {
+      list.appendChild(item.content);
+      this.addRemoveButtonListener(item.content, index);
+    });
+  }
+
+  addRemoveButtonListener(item, index) {
+    const removeButton = item.querySelector("[data-item-remove-button]");
+    removeButton.dataset.indexOfItem = index;
+
+    removeButton.addEventListener("click", (e) => {
+      const indexOfItem = e.target.dataset.indexOfItem;
+      this.deleteItemFromArr(this.saveItemArr, indexOfItem);
+      this.saveListElm.innerHTML = "";
+      this.addItemsToList(this.saveListElm, this.saveItemArr);
+      this.subtitleCounter();
+    });
+  }
+
+  deleteItemFromArr(array, indexOfItem) {
+    array.splice(indexOfItem, 1);
   }
 
   closeMenu(event) {
@@ -221,7 +242,7 @@ export class FooterPanel {
 
   subtitleCounter() {
     const length = this.saveItemArr.length;
-    this.subtitleCounter.textContent = `1-10 z ${length} wyrażeń`;
+    this.subtitleCounterElm.textContent = `1-10 z ${length} wyrażeń`;
   }
 }
 

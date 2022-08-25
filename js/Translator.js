@@ -118,7 +118,7 @@ export class Translator {
         this.textToTranslate,
         this.translatedText
       );
-      this.footerPanel.addItemToList(
+      this.footerPanel.addItemsToList(
         this.footerPanel.saveListElm,
         this.footerPanel.saveItemArr
       );

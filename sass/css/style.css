@@ -465,6 +465,8 @@ input {
 .main .main__panel .main__textarea {
   width: 100%;
   height: 100%;
+  overflow-wrap: break-word;
+  overflow: auto;
 }
 .main .main__panel .main__panel-left {
   left: 0;
