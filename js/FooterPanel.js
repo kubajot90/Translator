@@ -35,7 +35,10 @@ export class FooterPanel {
     this.htmlElements();
     this.eventlisteners();
     this.addItemsToList(this.saveListElm, this.saveItemArr);
-
+    this.saveItemArr.forEach((item) =>
+      item.content.addEventListener("click", (e) => this.deleteItem(e))
+    );
+    this.subtitleCounter();
     // clickAnimation(ClassSelector){
     //   ClassSelector = document.querySelector(".options__sort");
     //   ClassSelector.addEventListener("click", () => {
@@ -202,14 +205,17 @@ export class FooterPanel {
           <span class="text__to">${textTo}</span>
       </div>`;
 
+    item.addEventListener("click", (e) => this.deleteItem(e));
+
     const itemObj = { firstLanguage: firstLang, content: item };
     this.saveItemArr.unshift(itemObj);
   }
 
   addItemsToList(list, arr) {
     arr.forEach((item, index) => {
+      item.content.dataset.indexOfItem = index;
       list.appendChild(item.content);
-      this.addRemoveButtonListener(item.content, index);
+      // this.addRemoveButtonListener(item.content, index);
     });
   }
 
@@ -219,11 +225,24 @@ export class FooterPanel {
 
     removeButton.addEventListener("click", (e) => {
       const indexOfItem = e.target.dataset.indexOfItem;
-      this.deleteItemFromArr(this.saveItemArr, indexOfItem);
-      this.saveListElm.innerHTML = "";
-      this.addItemsToList(this.saveListElm, this.saveItemArr);
-      this.subtitleCounter();
+      window.setTimeout(() => this.deleteItem(indexOfItem), 400);
     });
+  }
+
+  // deleteItem(indexOfItem) {
+  //   this.deleteItemFromArr(this.saveItemArr, indexOfItem);
+  //   this.saveListElm.innerHTML = "";
+  //   this.addItemsToList(this.saveListElm, this.saveItemArr);
+  //   this.subtitleCounter();
+  // }
+  deleteItem(e) {
+    console.log(e.target.parentNode.parentNode.parentNode.dataset.indexOfItem);
+    const indexOfItem =
+      e.target.parentNode.parentNode.parentNode.dataset.indexOfItem;
+    this.deleteItemFromArr(this.saveItemArr, indexOfItem);
+    this.saveListElm.innerHTML = "";
+    this.addItemsToList(this.saveListElm, this.saveItemArr);
+    this.subtitleCounter();
   }
 
   deleteItemFromArr(array, indexOfItem) {
