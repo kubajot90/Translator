@@ -249,15 +249,15 @@
                     </span>
             <p class="panel__title-p save__panel-title-p">Zapisane</p> 
             </div>
-           <span class="material-symbols-outlined x-mark-panel" data-x-mark-panel>
+           <span class="material-symbols-outlined x-mark-panel" data-x-mark-panel-save>
             close
             </span>
-        <div class="title__options">
-                <span class="material-symbols-outlined title__loup-icon">
+        <div class="title__options" data-save-options>
+                <span class="material-symbols-outlined title__loup-icon" data-title-search-icon>
                     search
                 </span>
 
-                <div class="options__sort">
+                <div class="options__sort" data-sort-button>
                     <span class="sort__text">Sortuj</span>
                     <span class="material-symbols-outlined sort__icon">
                     arrow_drop_down
@@ -265,36 +265,39 @@
                     <span class="material-symbols-outlined sort__icon--mobile">
                         sort
                         </span>
-                    <div class="sort__menu">
-                        <span class="sort__data">
-                            <span class="material-symbols-outlined check__icon">
+                    <div class="sort__menu hide" data-sort-menu>
+                        <span class="sort__date" data-sort-date>
+                            <span class="material-symbols-outlined check__icon check__icon-date" data-date-check>
                                 done
                                 </span>
                             Sortuj według daty</span>
-                        <span class="sort__alphabet">
-                            <span class="material-symbols-outlined check__icon">
+                        <span class="sort__alphabet" data-sort-alphabet>
+                            <span class="material-symbols-outlined check__icon check__icon-alphabet" data-alphabet-check>
                                 done
                                 </span>
                             Sortuj alfabetycznie</span>
                     </div>
                 </div>
                 
-                <span class="material-symbols-outlined title__dots">
+                <span class="material-symbols-outlined title__dots" data-title-dots-icon>
                         more_vert
-                </span>    
+                </span>  
+                <div class="title__dots-menu hide" data-title-dots-menu>
+                    <span class="title__dots-text" data-title-dots-text>Wyczyść wszystkie zapisane elementy</span>
+                </div>  
         </div>
-        <div class="title__search">
+        <div class="title__search" data-title-search>
             <span class="material-symbols-outlined title__loup-icon">
                 search
             </span>
-            <input type="text" placeholder="Szukaj" class="title__input">
-            <span class="material-symbols-outlined x-mark-panel x-mark__search-input" >
+            <input type="text" placeholder="Szukaj" class="title__input" data-title-search-input>
+            <span class="material-symbols-outlined x-mark-panel x-mark__search-input" data-input-x-mark>
                 close
                 </span>
         </div>
         </div>
         <div class="panel__subtitle save__panel-subtitle">
-            <span class="subtitle__counter">
+            <span class="subtitle__counter" data-subtitle-counter>
                 1-10 z 12 wyrażeń
             </span>
             <div class="subtitle__arrows">
@@ -311,7 +314,7 @@
         <div class="panel__content">
             <ul class="panel__list" data-save-list>
                 
-                <li class="panel__item">
+                <!-- <li class="panel__item">
                     <div class="item__header">
                         <div class="item__lang-box">
                             <span class="translate__from">polski</span>
@@ -332,7 +335,7 @@
                         <span class="text__to">some kind of text</span>
                     </div>
                     
-                </li>
+                </li> -->
 
 
                 

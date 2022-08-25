@@ -78,26 +78,19 @@
             }
 
             .sort__menu {
- display: none;               
-                position: absolute;
                 top: 100%;
                 right: 0;
-                font-size: 1rem;
                 padding: 8px 0;
-                white-space: nowrap;
-                border-radius: 5px;
-                border: 1px solid $main-border-color;
-                box-shadow:0 3px  12px rgba(0, 0, 0, 0.259);
-                background-color: white;
+                @include panelMenuBox;
 
-                .sort__data, .sort__alphabet {
+                .sort__date, .sort__alphabet {
                     display: flex;
                     align-items: center;
                     padding: 12px;
                     width: 100%;
                 }
 
-              .sort__data:hover, .sort__alphabet:hover  {
+              .sort__date:hover, .sort__alphabet:hover  {
                 background-color:$hover-background-blue-color;
               }
               
@@ -107,12 +100,20 @@
                 margin-right: 13px;
                 margin-left: 3px;
               }
+              .check__icon-date {
+                visibility: visible;
+              }
+
+              .check__icon-alphabet {
+                visibility: hidden;
+              }
             }
            
             
         }
 
         .title__dots{
+            position: relative;
             font-weight: bold;
             font-size: 1.6rem;
             padding: 7px;
@@ -127,11 +128,32 @@
                 flex-basis: auto;
             }
 
+            .title__dots-menu {
+                right: 5px;
+                top: 94%;
+                // padding: 22px;
+                cursor: pointer;
+                @include panelMenuBox;
+
+                
+                .title__dots-text {
+                    display: block;
+                    width: 100%;
+                    padding: 14px;
+                    margin: 8px 0;
+                    &:hover {
+                        
+                        background-color: $hover-grey-color;
+                    }
+
+                }
+            }
+
     }
     
     .title__search {
-display: none; 
-        // display: flex;
+        display: none; 
+        width: 100%;
         align-items: center;
         position: relative;
 
@@ -145,9 +167,10 @@ display: none;
 
         .title__input {           
             width: 100%;
-            padding: 5px 0 5px 50px;
+            padding: 10px 0 10px 50px;
             border-radius: 4px;
             background-color: $hover-grey-color;
+            font-size: 1rem;
 
             &::placeholder {
                 font-size: 1rem;

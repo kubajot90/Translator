@@ -78,3 +78,14 @@
         border-radius: 50%;
     }
 }
+
+@mixin panelMenuBox {
+    display: block;
+    position: absolute;
+    font-size: 1rem;
+    white-space: nowrap;
+    border-radius: 5px;
+    border: 1px solid $main-border-color;
+    box-shadow:0 3px  12px rgba(0, 0, 0, 0.259);
+    background-color: white;
+}

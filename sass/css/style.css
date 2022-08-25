@@ -406,7 +406,7 @@ input {
   cursor: pointer;
 }
 .main .main__lang-panel .main__lang-list .list__item:hover {
-  background-color: rgb(237, 237, 237);
+  background-color: rgb(244, 244, 244);
 }
 .main .main__lang-panel .main__lang-list .list__item .detect__language-icon {
   top: 4px;
@@ -727,7 +727,7 @@ input {
 }
 .navigation .navigation__menu-icon-box:hover {
   border-radius: 50%;
-  background-color: rgb(237, 237, 237);
+  background-color: rgb(244, 244, 244);
 }
 .navigation .navigation__menu-icon-box .navigation__menu-icon-line {
   position: absolute;
@@ -1212,12 +1212,12 @@ input {
   }
 }
 .save__panel .save__panel-title .title__options .options__sort .sort__menu {
-  display: none;
-  position: absolute;
   top: 100%;
   right: 0;
-  font-size: 1rem;
   padding: 8px 0;
+  display: block;
+  position: absolute;
+  font-size: 1rem;
   white-space: nowrap;
   border-radius: 5px;
   border: 1px solid rgb(221, 221, 221);
@@ -1225,7 +1225,7 @@ input {
           box-shadow: 0 3px 12px rgba(0, 0, 0, 0.259);
   background-color: white;
 }
-.save__panel .save__panel-title .title__options .options__sort .sort__menu .sort__data, .save__panel .save__panel-title .title__options .options__sort .sort__menu .sort__alphabet {
+.save__panel .save__panel-title .title__options .options__sort .sort__menu .sort__date, .save__panel .save__panel-title .title__options .options__sort .sort__menu .sort__alphabet {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1235,7 +1235,7 @@ input {
   padding: 12px;
   width: 100%;
 }
-.save__panel .save__panel-title .title__options .options__sort .sort__menu .sort__data:hover, .save__panel .save__panel-title .title__options .options__sort .sort__menu .sort__alphabet:hover {
+.save__panel .save__panel-title .title__options .options__sort .sort__menu .sort__date:hover, .save__panel .save__panel-title .title__options .options__sort .sort__menu .sort__alphabet:hover {
   background-color: rgba(25, 102, 210, 0.0784313725);
 }
 .save__panel .save__panel-title .title__options .options__sort .sort__menu .check__icon {
@@ -1244,7 +1244,14 @@ input {
   margin-right: 13px;
   margin-left: 3px;
 }
+.save__panel .save__panel-title .title__options .options__sort .sort__menu .check__icon-date {
+  visibility: visible;
+}
+.save__panel .save__panel-title .title__options .options__sort .sort__menu .check__icon-alphabet {
+  visibility: hidden;
+}
 .save__panel .save__panel-title .title__options .title__dots {
+  position: relative;
   font-weight: bold;
   font-size: 1.6rem;
   padding: 7px;
@@ -1261,8 +1268,32 @@ input {
         flex-basis: auto;
   }
 }
+.save__panel .save__panel-title .title__options .title__dots-menu {
+  right: 5px;
+  top: 94%;
+  cursor: pointer;
+  display: block;
+  position: absolute;
+  font-size: 1rem;
+  white-space: nowrap;
+  border-radius: 5px;
+  border: 1px solid rgb(221, 221, 221);
+  -webkit-box-shadow: 0 3px 12px rgba(0, 0, 0, 0.259);
+          box-shadow: 0 3px 12px rgba(0, 0, 0, 0.259);
+  background-color: white;
+}
+.save__panel .save__panel-title .title__options .title__dots-menu .title__dots-text {
+  display: block;
+  width: 100%;
+  padding: 14px;
+  margin: 8px 0;
+}
+.save__panel .save__panel-title .title__options .title__dots-menu .title__dots-text:hover {
+  background-color: rgb(244, 244, 244);
+}
 .save__panel .save__panel-title .title__search {
   display: none;
+  width: 100%;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -1277,9 +1308,10 @@ input {
 }
 .save__panel .save__panel-title .title__search .title__input {
   width: 100%;
-  padding: 5px 0 5px 50px;
+  padding: 10px 0 10px 50px;
   border-radius: 4px;
-  background-color: rgb(237, 237, 237);
+  background-color: rgb(244, 244, 244);
+  font-size: 1rem;
 }
 .save__panel .save__panel-title .title__search .title__input::-webkit-input-placeholder {
   font-size: 1rem;

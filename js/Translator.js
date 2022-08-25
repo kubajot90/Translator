@@ -1,7 +1,7 @@
 import { LanguagePanel } from "./LanguagePanel.js";
 import { languagesList } from "./languagesList.js";
 import { Navigation } from "./Navigation.js";
-import { FooterIcons } from "./FooterIcons.js";
+import { FooterPanel } from "./FooterPanel.js";
 
 export class Translator {
   constructor() {
@@ -14,6 +14,7 @@ export class Translator {
     this.panelRightElm = null;
     this.panelStarIconElm = null;
     this.panelCopyIconElm = null;
+    this.languageButtonsRightElm = null;
 
     this.fetchTimeout = null;
 
@@ -32,8 +33,8 @@ export class Translator {
     this.languagePanel.init();
     this.navigation = new Navigation();
     this.navigation.init();
-    this.footerIcons = new FooterIcons();
-    this.footerIcons.init();
+    this.footerPanel = new FooterPanel();
+    this.footerPanel.init();
 
     this.lettersCounter = 5000;
   }
@@ -54,9 +55,20 @@ export class Translator {
     this.panelRightElm = document.querySelector("[data-panel-right]");
     this.panelStarIconElm = document.querySelector("[data-main-panel-star]");
     this.panelCopyIconElm = document.querySelector("[data-copy-icon]");
+    // this.languageButtonsRightElm = document.querySelectorAll(
+    //   "[data-buttons-lang-right]"
+    // );
   }
 
   eventlisteners() {
+    //   this.languageButtonsRightElm.forEach((button) => {
+    //     button.addEventListener("click", () => {
+    //       console.log("dziala");
+    //       console.log(this.API__ENDPOINT);
+    //       this.fetchData(this.API__ENDPOINT);
+    //     });
+    //   });
+
     this.textareaLeftElm.addEventListener("input", () => {
       this.elementShow(this.textareaXMarkElm);
       this.setApiEndpoint();
@@ -94,26 +106,27 @@ export class Translator {
         : languagesList[
             this.languagePanel.buttonLanguages.left[0]
           ].name.toLowerCase();
-      // const firstLanguage =
-      //   languagesList[
-      //     this.languagePanel.buttonLanguages.left[0]
-      //   ].name.toLowerCase();
 
       const secondLanguage =
         languagesList[
           this.languagePanel.buttonLanguages.right[0]
         ].name.toLowerCase();
 
-      this.footerIcons.createSaveItem(
+      this.footerPanel.createSaveItem(
         firstLanguage,
         secondLanguage,
         this.textToTranslate,
         this.translatedText
       );
+      this.footerPanel.addItemToList(
+        this.footerPanel.saveListElm,
+        this.footerPanel.saveItemArr
+      );
+      this.footerPanel.subtitleCounter();
     });
 
     // this.panelCopyIconElm.addEventListener("click", () =>
-    //   this.footerIcons.
+    //   this.footerPanel.
     // );
   }
 
