@@ -93,7 +93,7 @@ function itemTemplate(itemObj) {
 </div>`;
 
   const itemObjTemplate = {
-    firstLanguage: itemObj.firstLang,
+    textToTranslate: itemObj.textFrom,
     content: item,
   };
   exampleSaveItems.push(itemObjTemplate);

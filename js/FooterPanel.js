@@ -29,15 +29,14 @@ export class FooterPanel {
     this.subtitleCounterElm = null;
 
     this.saveItemArr = [...exampleSaveItems];
+    this.sortedItemArr = null;
   }
 
   init() {
     this.htmlElements();
     this.eventlisteners();
     this.addItemsToList(this.saveListElm, this.saveItemArr);
-    this.saveItemArr.forEach((item) =>
-      item.content.addEventListener("click", (e) => this.deleteItem(e))
-    );
+    this.addListenersToExampleItems();
     this.subtitleCounter();
     // clickAnimation(ClassSelector){
     //   ClassSelector = document.querySelector(".options__sort");
@@ -100,6 +99,7 @@ export class FooterPanel {
     this.saveTitleDotsTextElm = document.querySelector(
       "[data-title-dots-text]"
     );
+
     this.subtitleCounterElm = document.querySelector("[data-subtitle-counter]");
   }
 
@@ -156,6 +156,16 @@ export class FooterPanel {
       this.clearPanelList(this.saveListElm, this.saveItemArr);
       this.subtitleCounter();
     });
+
+    this.saveOptionAlphabetElm.addEventListener("click", () => {
+      this.sortAlphabet(this.saveItemArr);
+      this.saveListElm.innerHTML = "";
+      this.addItemsToList(this.saveListElm, this.sortedItemArr);
+    });
+
+    // this.saveItemButton.addEventListener("click", () => {
+    //   this.saveItemButton.style.color = "#5f6368";
+    // });
   }
 
   toggleHistoryPanel() {
@@ -205,9 +215,14 @@ export class FooterPanel {
           <span class="text__to">${textTo}</span>
       </div>`;
 
-    item.addEventListener("click", (e) => this.deleteItem(e));
+    const itemButton = item.querySelector("[data-item-remove-button]");
 
-    const itemObj = { firstLanguage: firstLang, content: item };
+    itemButton.addEventListener("click", (e) => {
+      e.target.style.color = "#5f6368";
+      this.deleteItem(e);
+    });
+
+    const itemObj = { textToTranslate: textFrom, content: item };
     this.saveItemArr.unshift(itemObj);
   }
 
@@ -215,38 +230,39 @@ export class FooterPanel {
     arr.forEach((item, index) => {
       item.content.dataset.indexOfItem = index;
       list.appendChild(item.content);
-      // this.addRemoveButtonListener(item.content, index);
     });
   }
 
-  addRemoveButtonListener(item, index) {
-    const removeButton = item.querySelector("[data-item-remove-button]");
-    removeButton.dataset.indexOfItem = index;
+  // addRemoveButtonListener(item, index) {
+  //   const removeButton = item.querySelector("[data-item-remove-button]");
+  //   removeButton.dataset.indexOfItem = index;
 
-    removeButton.addEventListener("click", (e) => {
-      const indexOfItem = e.target.dataset.indexOfItem;
-      window.setTimeout(() => this.deleteItem(indexOfItem), 400);
-    });
-  }
-
-  // deleteItem(indexOfItem) {
-  //   this.deleteItemFromArr(this.saveItemArr, indexOfItem);
-  //   this.saveListElm.innerHTML = "";
-  //   this.addItemsToList(this.saveListElm, this.saveItemArr);
-  //   this.subtitleCounter();
+  //   removeButton.addEventListener("click", (e) => {
+  //     const indexOfItem = e.target.dataset.indexOfItem;
+  //     window.setTimeout(() => this.deleteItem(indexOfItem), 400);
+  //   });
   // }
+
   deleteItem(e) {
-    console.log(e.target.parentNode.parentNode.parentNode.dataset.indexOfItem);
-    const indexOfItem =
-      e.target.parentNode.parentNode.parentNode.dataset.indexOfItem;
-    this.deleteItemFromArr(this.saveItemArr, indexOfItem);
-    this.saveListElm.innerHTML = "";
-    this.addItemsToList(this.saveListElm, this.saveItemArr);
-    this.subtitleCounter();
+    const indexOfItem = e.target.dataset.indexOfItem;
+    window.setTimeout(() => {
+      this.deleteItemFromArr(this.saveItemArr, indexOfItem);
+      this.saveListElm.innerHTML = "";
+      this.addItemsToList(this.saveListElm, this.saveItemArr);
+      this.subtitleCounter();
+    }, 500);
   }
 
   deleteItemFromArr(array, indexOfItem) {
     array.splice(indexOfItem, 1);
+  }
+
+  sortAlphabet(array) {
+    this.sortedItemArr = [...array];
+    this.sortedItemArr.sort((x, y) =>
+      x.textToTranslate.localeCompare(y.textToTranslate)
+    );
+    console.log(this.sortedItemArr);
   }
 
   closeMenu(event) {
@@ -262,6 +278,19 @@ export class FooterPanel {
   subtitleCounter() {
     const length = this.saveItemArr.length;
     this.subtitleCounterElm.textContent = `1-10 z ${length} wyrażeń`;
+  }
+
+  addListenersToExampleItems() {
+    this.saveItemArr.forEach((item) => {
+      const itemButton = item.content.querySelector(
+        "[data-item-remove-button]"
+      );
+
+      itemButton.addEventListener("click", (e) => {
+        e.target.style.color = "#5f6368";
+        this.deleteItem(e);
+      });
+    });
   }
 }
 
