@@ -30,6 +30,8 @@ export class FooterPanel {
 
     this.saveItemArr = [...exampleSaveItems];
     this.sortedItemArr = null;
+
+    this.isSortAlphabet = false;
   }
 
   init() {
@@ -138,13 +140,20 @@ export class FooterPanel {
     document.addEventListener("click", (event) => this.closeMenu(event));
 
     this.saveOptionDateElm.addEventListener("click", () => {
+      this.isSortAlphabet = false;
       this.saveDateCheckIconElm.style.visibility = "visible";
       this.saveAlphabetCheckIconElm.style.visibility = "hidden";
+      this.saveListElm.innerHTML = "";
+      this.addItemsToList(this.saveListElm, this.saveItemArr);
     });
 
     this.saveOptionAlphabetElm.addEventListener("click", () => {
+      this.isSortAlphabet = true;
       this.saveDateCheckIconElm.style.visibility = "hidden";
       this.saveAlphabetCheckIconElm.style.visibility = "visible";
+      this.sortAlphabet(this.saveItemArr);
+      this.saveListElm.innerHTML = "";
+      this.addItemsToList(this.saveListElm, this.sortedItemArr);
     });
 
     this.saveTitleDotsIconElm.addEventListener("click", () => {
@@ -155,12 +164,6 @@ export class FooterPanel {
     this.saveTitleDotsTextElm.addEventListener("click", () => {
       this.clearPanelList(this.saveListElm, this.saveItemArr);
       this.subtitleCounter();
-    });
-
-    this.saveOptionAlphabetElm.addEventListener("click", () => {
-      this.sortAlphabet(this.saveItemArr);
-      this.saveListElm.innerHTML = "";
-      this.addItemsToList(this.saveListElm, this.sortedItemArr);
     });
 
     // this.saveItemButton.addEventListener("click", () => {
@@ -219,7 +222,10 @@ export class FooterPanel {
 
     itemButton.addEventListener("click", (e) => {
       e.target.style.color = "#5f6368";
-      this.deleteItem(e);
+      const indexOfItem =
+        e.target.parentElement.parentElement.parentElement.dataset.indexOfItem;
+      console.log(indexOfItem);
+      this.deleteItem(indexOfItem);
     });
 
     const itemObj = { textToTranslate: textFrom, content: item };
@@ -243,17 +249,33 @@ export class FooterPanel {
   //   });
   // }
 
-  deleteItem(e) {
-    const indexOfItem = e.target.dataset.indexOfItem;
+  deleteItem(indexOfItem) {
+    // const indexOfItem = e.target.dataset.indexOfItem;
+    console.log(indexOfItem);
     window.setTimeout(() => {
-      this.deleteItemFromArr(this.saveItemArr, indexOfItem);
       this.saveListElm.innerHTML = "";
-      this.addItemsToList(this.saveListElm, this.saveItemArr);
+      if (!this.isSortAlphabet) {
+        this.deleteItemFromArr(this.saveItemArr, indexOfItem);
+        this.addItemsToList(this.saveListElm, this.saveItemArr);
+      } else {
+        this.deleteItemFromArr(this.sortedItemArr, indexOfItem);
+        this.addItemsToList(this.saveListElm, this.sortedItemArr);
+      }
       this.subtitleCounter();
     }, 500);
   }
 
   deleteItemFromArr(array, indexOfItem) {
+    if (this.isSortAlphabet) {
+      let secondArray =
+        array === this.saveItemArr ? this.sortedItemArr : this.saveItemArr;
+
+      secondArray.forEach((element, index) => {
+        if (element === array[indexOfItem]) {
+          secondArray.splice(index, 1);
+        }
+      });
+    }
     array.splice(indexOfItem, 1);
   }
 
@@ -262,7 +284,6 @@ export class FooterPanel {
     this.sortedItemArr.sort((x, y) =>
       x.textToTranslate.localeCompare(y.textToTranslate)
     );
-    console.log(this.sortedItemArr);
   }
 
   closeMenu(event) {
@@ -288,7 +309,12 @@ export class FooterPanel {
 
       itemButton.addEventListener("click", (e) => {
         e.target.style.color = "#5f6368";
-        this.deleteItem(e);
+        // console.log(e.target);
+        // const indexOfItem = e.target.dataset.indexOfItem;
+        const indexOfItem =
+          e.target.parentElement.parentElement.parentElement.dataset
+            .indexOfItem;
+        this.deleteItem(indexOfItem);
       });
     });
   }

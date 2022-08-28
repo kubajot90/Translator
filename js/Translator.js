@@ -118,10 +118,21 @@ export class Translator {
         this.textToTranslate,
         this.translatedText
       );
-      this.footerPanel.addItemsToList(
-        this.footerPanel.saveListElm,
-        this.footerPanel.saveItemArr
-      );
+
+      if (!this.footerPanel.isSortAlphabet) {
+        this.footerPanel.addItemsToList(
+          this.footerPanel.saveListElm,
+          this.footerPanel.saveItemArr
+        );
+      } else {
+        this.footerPanel.sortAlphabet(this.footerPanel.saveItemArr);
+        this.footerPanel.saveListElm.innerHTML = "";
+        this.footerPanel.addItemsToList(
+          this.footerPanel.saveListElm,
+          this.footerPanel.sortedItemArr
+        );
+      }
+
       this.footerPanel.subtitleCounter();
     });
 
