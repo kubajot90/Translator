@@ -1363,6 +1363,10 @@ input {
   border-radius: 50%;
   background-color: rgba(237, 237, 237, 0.505);
 }
+.save__panel .save__panel-subtitle .subtitle__arrows .subtitle__arrows--disable {
+  opacity: 0.5;
+  cursor: default;
+}
 .save__panel .item__lang-box {
   border: 1px solid rgb(221, 221, 221);
   border-radius: 15px;

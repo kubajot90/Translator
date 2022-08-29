@@ -80,6 +80,7 @@ export class Translator {
         this.hidePanel();
         this.elementHide(this.panelStarIconElm);
         this.elementHide(this.panelCopyIconElm);
+        this.toggleStarButton("remove");
       } else {
         this.elementShow(this.panelRightElm);
       }
@@ -98,6 +99,7 @@ export class Translator {
       this.hidePanel();
       this.elementHide(this.panelStarIconElm);
       this.elementHide(this.panelCopyIconElm);
+      this.toggleStarButton("remove");
     });
 
     this.panelStarIconElm.addEventListener("click", () => {
@@ -132,8 +134,8 @@ export class Translator {
           this.footerPanel.sortedItemArr
         );
       }
-
-      this.footerPanel.subtitleCounter();
+      this.toggleStarButton("add");
+      this.footerPanel.drawSubtitleCounter();
     });
 
     // this.panelCopyIconElm.addEventListener("click", () =>
@@ -223,6 +225,14 @@ export class Translator {
 
   resetTextareaLeft() {
     this.textareaLeftElm.value = "";
+  }
+
+  toggleStarButton(action) {
+    action === "add"
+      ? (this.panelStarIconElm.style.color = "#d56e0c")
+      : (this.panelStarIconElm.style.color = "#5f6368");
+
+    this.panelStarIconElm.classList[action]("material-symbols-sharp");
   }
 
   elementShow(element) {

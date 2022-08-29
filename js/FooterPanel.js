@@ -44,6 +44,7 @@ export class FooterPanel {
     this.addItemsToList(this.saveListElm, this.saveItemArr);
     this.addListenersToExampleItems();
     this.drawSubtitleCounter();
+    this.checkIsArrowEnable();
     // clickAnimation(ClassSelector){
     //   ClassSelector = document.querySelector(".options__sort");
     //   ClassSelector.addEventListener("click", () => {
@@ -118,11 +119,11 @@ export class FooterPanel {
   }
 
   eventlisteners() {
-    // this.historyButtonElm.addEventListener("click", () => {
-    //   this.toggleHistoryPanel();
-    //   if (this.savePanelElm.classList.contains("panel--show"))
-    //     this.toggleSavePanel();
-    // });
+    this.historyButtonElm.addEventListener("click", () => {
+      this.toggleHistoryPanel();
+      if (this.savePanelElm.classList.contains("panel--show"))
+        this.toggleSavePanel();
+    });
     this.historyXMarkElm.addEventListener("click", () =>
       this.toggleHistoryPanel()
     );
@@ -179,18 +180,31 @@ export class FooterPanel {
     });
 
     this.subtitleArrowLeftElm.addEventListener("click", () => {
-      if (this.subtitleCollectionCounter > 0) this.subtitleCollectionCounter--;
-      this.drawSubtitleCounter();
+      this.subtitleArrowLeftElm.classList.remove("subtitle__arrows--disable");
+
+      if (this.subtitleCollectionCounter > 0) {
+        this.subtitleCollectionCounter--;
+        this.drawSubtitleCounter();
+      }
+      if (this.subtitleCollectionCounter === 0) {
+        this.subtitleArrowLeftElm.classList.add("subtitle__arrows--disable");
+      }
     });
 
     this.subtitleArrowRightElm.addEventListener("click", () => {
-      if (this.subtitleCollectionCounter < 10) this.subtitleCollectionCounter++;
-      this.drawSubtitleCounter();
-    });
+      this.subtitleArrowLeftElm.classList.remove("subtitle__arrows--disable");
 
-    // this.saveItemButton.addEventListener("click", () => {
-    //   this.saveItemButton.style.color = "#5f6368";
-    // });
+      if (this.subtitleCollectionCounter < this.subtitleCounterArr.length - 1) {
+        this.subtitleCollectionCounter++;
+        this.drawSubtitleCounter();
+      }
+      if (
+        this.subtitleCollectionCounter ===
+        this.subtitleCounterArr.length - 1
+      ) {
+        this.subtitleArrowRightElm.classList.add("subtitle__arrows--disable");
+      }
+    });
   }
 
   toggleHistoryPanel() {
@@ -261,17 +275,8 @@ export class FooterPanel {
       item.content.dataset.indexOfItem = index;
       list.appendChild(item.content);
     });
+    this.checkIsArrowEnable();
   }
-
-  // addRemoveButtonListener(item, index) {
-  //   const removeButton = item.querySelector("[data-item-remove-button]");
-  //   removeButton.dataset.indexOfItem = index;
-
-  //   removeButton.addEventListener("click", (e) => {
-  //     const indexOfItem = e.target.dataset.indexOfItem;
-  //     window.setTimeout(() => this.deleteItem(indexOfItem), 400);
-  //   });
-  // }
 
   deleteItem(indexOfItem) {
     window.setTimeout(() => {
@@ -285,6 +290,7 @@ export class FooterPanel {
       }
       this.drawSubtitleCounter();
     }, 500);
+    this.checkIsArrowEnable();
   }
 
   deleteItemFromArr(array, indexOfItem) {
@@ -318,6 +324,14 @@ export class FooterPanel {
     }
   }
 
+  checkIsArrowEnable() {
+    if (this.saveItemArr.length > 10) {
+      this.subtitleArrowRightElm.classList.remove("subtitle__arrows--disable");
+    } else {
+      this.subtitleArrowRightElm.classList.add("subtitle__arrows--disable");
+    }
+  }
+
   drawSubtitleCounter() {
     this.subtitleCounterArr = [[]];
     // const length = this.saveItemArr.length;
@@ -334,7 +348,7 @@ export class FooterPanel {
       this.subtitleCounterArr[arrayIndex].push(i);
       collection++;
     }
-    console.log(this.subtitleCounterArr);
+    // console.log(this.subtitleCounterArr);
     this.subtitleCounterElm.textContent = `${
       this.subtitleCounterArr[this.subtitleCollectionCounter][0]
     }-${

@@ -208,6 +208,11 @@
                 background-color:  rgba(237, 237, 237, 0.505);
             }
         }
+
+        .subtitle__arrows--disable {
+            opacity: .5;
+            cursor:default;
+        }
     }
 }
 .panel__item {
