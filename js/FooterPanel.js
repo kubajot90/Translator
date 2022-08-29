@@ -5,6 +5,8 @@ export class FooterPanel {
     this.historyButtonElm = null;
     this.historyPanelElm = null;
     this.historySubtitleElm = null;
+    this.historyListElm = null;
+    this.historyClearButton = null;
 
     this.saveButtonElm = null;
     this.savePanelElm = null;
@@ -35,6 +37,8 @@ export class FooterPanel {
     this.subtitleCounterArr = [[]];
     this.subtitleCollectionCounter = 0;
 
+    this.historyArr = [];
+
     this.isSortAlphabet = false;
   }
 
@@ -45,29 +49,6 @@ export class FooterPanel {
     this.addListenersToExampleItems();
     this.drawSubtitleCounter();
     this.checkIsArrowEnable();
-    // clickAnimation(ClassSelector){
-    //   ClassSelector = document.querySelector(".options__sort");
-    //   ClassSelector.addEventListener("click", () => {
-    //     const style = document.createElement("style");
-    //     style.innerText = `.options__sort::after {
-    //     position: absolute;
-    //     content:'';
-    //     top: 0;
-    //     left: 0;
-    //     width: 100%;
-    //     height: 100%;
-    //     border-radius: 4px;
-    //     background-color:  #5f636818;
-    //     transition: .4s;
-    //     animation: clickAnimation .1s ;
-    // }`;
-    //     ClassSelector.appendChild(style);
-    //     setTimeout(() => {
-    //       style.innerText = "";
-    //     }, 100);
-    //     ClassSelector.appendChild(style);
-    //   });
-    // }
   }
 
   htmlElements() {
@@ -75,6 +56,8 @@ export class FooterPanel {
     this.historyPanelElm = document.querySelector("[data-history-panel]");
     this.historySubtitleElm = document.querySelector("[data-history-subtitle]");
     this.historyXMarkElm = document.querySelector("[data-x-mark-history]");
+    this.historyListElm = document.querySelector("[data-history-list]");
+    this.historyClearButton = document.querySelector("[data-history-clear]");
 
     this.savePanelElm = document.querySelector("[data-save-panel]");
     this.saveButtonElm = document.querySelector("[data-save-button]");
@@ -128,6 +111,11 @@ export class FooterPanel {
       this.toggleHistoryPanel()
     );
 
+    this.historyClearButton.addEventListener("click", () => {
+      this.historyArr = [];
+      this.historyListElm.innerHTML = "";
+    });
+
     this.saveButtonElm.addEventListener("click", () => {
       this.toggleSavePanel();
       if (this.historyPanelElm.classList.contains("panel--show"))
@@ -143,7 +131,6 @@ export class FooterPanel {
 
     this.saveInputXMarkElm.addEventListener("click", () => {
       this.resetSaveInput();
-      this.saveListElm.innerHTML = "";
       this.isSortAlphabet
         ? this.addItemsToList(this.saveListElm, this.sortedItemArr)
         : this.addItemsToList(this.saveListElm, this.saveItemArr);
@@ -160,7 +147,6 @@ export class FooterPanel {
       this.isSortAlphabet = false;
       this.saveDateCheckIconElm.style.visibility = "visible";
       this.saveAlphabetCheckIconElm.style.visibility = "hidden";
-      this.saveListElm.innerHTML = "";
       this.addItemsToList(this.saveListElm, this.saveItemArr);
     });
 
@@ -169,7 +155,6 @@ export class FooterPanel {
       this.saveDateCheckIconElm.style.visibility = "hidden";
       this.saveAlphabetCheckIconElm.style.visibility = "visible";
       this.sortAlphabet(this.saveItemArr);
-      this.saveListElm.innerHTML = "";
       this.addItemsToList(this.saveListElm, this.sortedItemArr);
     });
 
@@ -218,7 +203,6 @@ export class FooterPanel {
           item.textToTranslate.includes(searchText) ||
           item.transaltedText.includes(searchText)
       );
-      this.saveListElm.innerHTML = "";
       this.addItemsToList(this.saveListElm, searchResult);
     });
   }
@@ -291,7 +275,38 @@ export class FooterPanel {
     this.saveItemArr.unshift(itemObj);
   }
 
+  createHistoryItem(firstLang, secondLang, textFrom, textTo) {
+    const item = document.createElement("li");
+    item.classList.add("panel__item");
+    item.innerHTML = `<div class="item__header">
+                        <div class="item__lang-box">
+                            <span class="translate__from">${firstLang}</span>
+                            <span class="material-symbols-outlined item__arrow">
+                            trending_flat
+                            </span>
+                            <span class="translate__to">${secondLang}</span>
+                        </div>
+
+                  
+                    </div>
+                    <div class="item__content">
+                        <span class="text__from">${textFrom}</span>
+                        <span class="text__to">${textTo}</span>
+                    </div>`;
+
+    const itemObj = {
+      textToTranslate: textFrom,
+      transaltedText: textTo,
+      content: item,
+    };
+
+    this.historyArr.unshift(itemObj);
+    this.addItemsToList(this.historyListElm, this.historyArr);
+  }
+
   addItemsToList(list, arr) {
+    list.innerHTML = "";
+
     arr.forEach((item, index) => {
       item.content.dataset.indexOfItem = index;
       list.appendChild(item.content);
@@ -301,7 +316,6 @@ export class FooterPanel {
 
   deleteItem(indexOfItem) {
     window.setTimeout(() => {
-      this.saveListElm.innerHTML = "";
       if (!this.isSortAlphabet) {
         this.deleteItemFromArr(this.saveItemArr, indexOfItem);
         this.addItemsToList(this.saveListElm, this.saveItemArr);
@@ -398,13 +412,3 @@ export class FooterPanel {
     });
   }
 }
-
-// var a = [
-// 	{FirsName:"Ellie", LastName:"Williams"},
-// 	{FirstName:"Lara", LastName : "Croft"}
-// ];
-// function SortArray(x, y){
-//     return x.LastName.localeCompare(y.LastName);
-// }
-// var s = a.sort(SortArray);
-// console.log(s);

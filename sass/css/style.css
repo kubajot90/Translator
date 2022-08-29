@@ -473,7 +473,7 @@ input {
   border-right: 1px solid rgb(221, 221, 221);
   background-color: white;
   position: absolute;
-  padding: 20px 20px;
+  padding: 20px 45px 20px 20px;
   top: 0;
   width: 50%;
   height: 100%;
@@ -509,7 +509,7 @@ input {
 .main .main__panel .main__panel-right {
   right: 0;
   position: absolute;
-  padding: 20px 20px;
+  padding: 20px 45px 20px 20px;
   top: 0;
   width: 50%;
   height: 100%;
@@ -1090,9 +1090,11 @@ input {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  overflow: auto;
 }
 .panel .panel__content .panel__item .item__content .text__from {
   margin: 9px 0 4px 0;
+  word-wrap: break-word;
 }
 .panel .panel__content .panel__item .item__content .text__to {
   color: #5f6368;

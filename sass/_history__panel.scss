@@ -137,8 +137,10 @@
             .item__content{
                 display: flex;
                 flex-direction: column;
+                overflow: auto;
                 .text__from{
                    margin: 9px 0 4px 0;
+                   word-wrap: break-word;
                 }
                 .text__to{
                     color: $main-font-color;

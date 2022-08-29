@@ -172,6 +172,8 @@ export class Translator {
         ? this.displayText(this.textToTranslate)
         : this.displayText(parsedResponse.responseData.translatedText);
 
+      this.setHistoryItem();
+
       this.elementHide(this.loaderElm);
       this.elementShow(this.panelBackgroundElm);
       this.elementShow(this.panelStarIconElm);
@@ -201,7 +203,6 @@ export class Translator {
     if (text === "!" || text.slice(-2) === "!#") {
       this.textareaRightElm.textContent = "";
     } else {
-      // this.textareaRightElm.textContent = text.replace("!", "");
       this.textareaRightElm.textContent = text.replace("!", "");
       this.translatedText = text.replace("!", "");
     }
@@ -214,6 +215,26 @@ export class Translator {
       this.languagePanel.detectButtonAfterElm.textContent = `WYKRYTO:${text}`;
       this.languagePanel.showDetectButtonAfter();
     }
+  }
+
+  setHistoryItem() {
+    const firstLanguage = this.languagePanel.isLanguageAutodetect
+      ? `${this.detectedLanguage.toLowerCase()}`
+      : languagesList[
+          this.languagePanel.buttonLanguages.left[0]
+        ].name.toLowerCase();
+
+    const secondLanguage =
+      languagesList[
+        this.languagePanel.buttonLanguages.right[0]
+      ].name.toLowerCase();
+
+    this.footerPanel.createHistoryItem(
+      firstLanguage,
+      secondLanguage,
+      this.textToTranslate,
+      this.translatedText
+    );
   }
 
   resetTextareaRight() {
