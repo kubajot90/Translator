@@ -141,9 +141,13 @@ export class FooterPanel {
       this.saveOptionsElm.style.display = "none";
     });
 
-    this.saveInputXMarkElm.addEventListener("click", () =>
-      this.resetSaveInput()
-    );
+    this.saveInputXMarkElm.addEventListener("click", () => {
+      this.resetSaveInput();
+      this.saveListElm.innerHTML = "";
+      this.isSortAlphabet
+        ? this.addItemsToList(this.saveListElm, this.sortedItemArr)
+        : this.addItemsToList(this.saveListElm, this.saveItemArr);
+    });
 
     this.saveSortButtonElm.addEventListener("click", () => {
       this.saveSortMenuElm.classList.toggle("hide");
@@ -205,6 +209,18 @@ export class FooterPanel {
         this.subtitleArrowRightElm.classList.add("subtitle__arrows--disable");
       }
     });
+
+    this.saveSearchInputElm.addEventListener("input", () => {
+      const searchText = this.saveSearchInputElm.value;
+
+      const searchResult = this.saveItemArr.filter(
+        (item) =>
+          item.textToTranslate.includes(searchText) ||
+          item.transaltedText.includes(searchText)
+      );
+      this.saveListElm.innerHTML = "";
+      this.addItemsToList(this.saveListElm, searchResult);
+    });
   }
 
   toggleHistoryPanel() {
@@ -262,11 +278,16 @@ export class FooterPanel {
       e.target.classList.add("material-symbols-outlined");
       const indexOfItem =
         e.target.parentElement.parentElement.parentElement.dataset.indexOfItem;
-      console.log(indexOfItem);
+
       this.deleteItem(indexOfItem);
+      this.resetSaveInput();
     });
 
-    const itemObj = { textToTranslate: textFrom, content: item };
+    const itemObj = {
+      textToTranslate: textFrom,
+      transaltedText: textTo,
+      content: item,
+    };
     this.saveItemArr.unshift(itemObj);
   }
 
@@ -334,8 +355,8 @@ export class FooterPanel {
 
   drawSubtitleCounter() {
     this.subtitleCounterArr = [[]];
-    // const length = this.saveItemArr.length;
-    const length = 34;
+    const length = this.saveItemArr.length;
+
     let collection = 0;
     let arrayIndex = 0;
     for (let i = 1; i < length + 1; i++) {
@@ -348,7 +369,7 @@ export class FooterPanel {
       this.subtitleCounterArr[arrayIndex].push(i);
       collection++;
     }
-    // console.log(this.subtitleCounterArr);
+
     this.subtitleCounterElm.textContent = `${
       this.subtitleCounterArr[this.subtitleCollectionCounter][0]
     }-${

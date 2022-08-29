@@ -78,7 +78,6 @@ export class Search {
         lang.lastElementChild.innerText.includes(text) &&
         lang.dataset.code != "Autodetect"
     );
-    console.log(languages);
     this.boldSearchText(languages, text);
     this.drawList(languages);
 

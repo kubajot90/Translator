@@ -33,8 +33,8 @@ const items = [
   {
     firstLang: "polski",
     secondLang: "angielski",
-    textFrom: "mysz",
-    textTo: "mouse",
+    textFrom: "wąż",
+    textTo: "Snake",
   },
   {
     firstLang: "polski",
@@ -94,6 +94,7 @@ function itemTemplate(itemObj) {
 
   const itemObjTemplate = {
     textToTranslate: itemObj.textFrom,
+    transaltedText: itemObj.textTo,
     content: item,
   };
   exampleSaveItems.push(itemObjTemplate);
