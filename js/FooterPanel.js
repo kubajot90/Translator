@@ -27,9 +27,13 @@ export class FooterPanel {
     this.saveTitleDotsMenuElm = null;
     this.saveTitleDotsTextElm = null;
     this.subtitleCounterElm = null;
+    this.subtitleArrowLeftElm = null;
+    this.subtitleArrowRightElm = null;
 
     this.saveItemArr = [...exampleSaveItems];
     this.sortedItemArr = null;
+    this.subtitleCounterArr = [[]];
+    this.subtitleCollectionCounter = 0;
 
     this.isSortAlphabet = false;
   }
@@ -39,7 +43,7 @@ export class FooterPanel {
     this.eventlisteners();
     this.addItemsToList(this.saveListElm, this.saveItemArr);
     this.addListenersToExampleItems();
-    this.subtitleCounter();
+    this.drawSubtitleCounter();
     // clickAnimation(ClassSelector){
     //   ClassSelector = document.querySelector(".options__sort");
     //   ClassSelector.addEventListener("click", () => {
@@ -103,14 +107,22 @@ export class FooterPanel {
     );
 
     this.subtitleCounterElm = document.querySelector("[data-subtitle-counter]");
+
+    this.subtitleArrowLeftElm = document.querySelector(
+      "[data-subtitle-arrow-left]"
+    );
+
+    this.subtitleArrowRightElm = document.querySelector(
+      "[data-subtitle-arrow-right]"
+    );
   }
 
   eventlisteners() {
-    this.historyButtonElm.addEventListener("click", () => {
-      this.toggleHistoryPanel();
-      if (this.savePanelElm.classList.contains("panel--show"))
-        this.toggleSavePanel();
-    });
+    // this.historyButtonElm.addEventListener("click", () => {
+    //   this.toggleHistoryPanel();
+    //   if (this.savePanelElm.classList.contains("panel--show"))
+    //     this.toggleSavePanel();
+    // });
     this.historyXMarkElm.addEventListener("click", () =>
       this.toggleHistoryPanel()
     );
@@ -163,7 +175,17 @@ export class FooterPanel {
 
     this.saveTitleDotsTextElm.addEventListener("click", () => {
       this.clearPanelList(this.saveListElm, this.saveItemArr);
-      this.subtitleCounter();
+      this.drawSubtitleCounter();
+    });
+
+    this.subtitleArrowLeftElm.addEventListener("click", () => {
+      if (this.subtitleCollectionCounter > 0) this.subtitleCollectionCounter--;
+      this.drawSubtitleCounter();
+    });
+
+    this.subtitleArrowRightElm.addEventListener("click", () => {
+      if (this.subtitleCollectionCounter < 10) this.subtitleCollectionCounter++;
+      this.drawSubtitleCounter();
     });
 
     // this.saveItemButton.addEventListener("click", () => {
@@ -222,6 +244,8 @@ export class FooterPanel {
 
     itemButton.addEventListener("click", (e) => {
       e.target.style.color = "#5f6368";
+      e.target.classList.remove("material-symbols-sharp");
+      e.target.classList.add("material-symbols-outlined");
       const indexOfItem =
         e.target.parentElement.parentElement.parentElement.dataset.indexOfItem;
       console.log(indexOfItem);
@@ -250,8 +274,6 @@ export class FooterPanel {
   // }
 
   deleteItem(indexOfItem) {
-    // const indexOfItem = e.target.dataset.indexOfItem;
-    console.log(indexOfItem);
     window.setTimeout(() => {
       this.saveListElm.innerHTML = "";
       if (!this.isSortAlphabet) {
@@ -261,7 +283,7 @@ export class FooterPanel {
         this.deleteItemFromArr(this.sortedItemArr, indexOfItem);
         this.addItemsToList(this.saveListElm, this.sortedItemArr);
       }
-      this.subtitleCounter();
+      this.drawSubtitleCounter();
     }, 500);
   }
 
@@ -296,9 +318,30 @@ export class FooterPanel {
     }
   }
 
-  subtitleCounter() {
-    const length = this.saveItemArr.length;
-    this.subtitleCounterElm.textContent = `1-10 z ${length} wyrażeń`;
+  drawSubtitleCounter() {
+    this.subtitleCounterArr = [[]];
+    // const length = this.saveItemArr.length;
+    const length = 34;
+    let collection = 0;
+    let arrayIndex = 0;
+    for (let i = 1; i < length + 1; i++) {
+      if (collection === 10) {
+        this.subtitleCounterArr.push([]);
+        arrayIndex++;
+        collection = 0;
+      }
+
+      this.subtitleCounterArr[arrayIndex].push(i);
+      collection++;
+    }
+    console.log(this.subtitleCounterArr);
+    this.subtitleCounterElm.textContent = `${
+      this.subtitleCounterArr[this.subtitleCollectionCounter][0]
+    }-${
+      this.subtitleCounterArr[this.subtitleCollectionCounter][
+        this.subtitleCounterArr[this.subtitleCollectionCounter].length - 1
+      ]
+    } z ${length} wyrażeń`;
   }
 
   addListenersToExampleItems() {
@@ -309,8 +352,9 @@ export class FooterPanel {
 
       itemButton.addEventListener("click", (e) => {
         e.target.style.color = "#5f6368";
-        // console.log(e.target);
-        // const indexOfItem = e.target.dataset.indexOfItem;
+        e.target.classList.remove("material-symbols-sharp");
+        e.target.classList.add("material-symbols-outlined");
+
         const indexOfItem =
           e.target.parentElement.parentElement.parentElement.dataset
             .indexOfItem;
