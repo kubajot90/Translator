@@ -81,10 +81,6 @@
         flex-grow: 1;
         overflow: auto;
 
-        .panel__list{
-
-        }
-
         .panel__item{
             padding: 4px 4px 4px 18px;
             border-bottom: 1px solid $main-border-color;
@@ -102,8 +98,6 @@
                 .item__lang-box{
                     display: flex;
                     align-items: center;
-                    .translate__from{}
-                    .translate__to{}
                     .item__arrow{
                         margin: 0 5px;
                         font-size: .9rem;
