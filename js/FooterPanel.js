@@ -58,6 +58,7 @@ export class FooterPanel {
     this.historyXMarkElm = document.querySelector("[data-x-mark-history]");
     this.historyListElm = document.querySelector("[data-history-list]");
     this.historyClearButton = document.querySelector("[data-history-clear]");
+    this.historyArrowBack = document.querySelector("[data-history-arrow-back]");
 
     this.savePanelElm = document.querySelector("[data-save-panel]");
     this.saveButtonElm = document.querySelector("[data-save-button]");
@@ -89,6 +90,7 @@ export class FooterPanel {
     this.saveTitleDotsTextElm = document.querySelector(
       "[data-title-dots-text]"
     );
+    this.saveArrowBack = document.querySelector("[data-save-arrow-back]");
 
     this.subtitleCounterElm = document.querySelector("[data-subtitle-counter]");
 
@@ -205,6 +207,10 @@ export class FooterPanel {
       );
       this.addItemsToList(this.saveListElm, searchResult);
     });
+
+    this.historyArrowBack.addEventListener('click',()=>this.toggleHistoryPanel())
+
+    this.saveArrowBack.addEventListener('click',()=>this.toggleSavePanel())
   }
 
   toggleHistoryPanel() {
