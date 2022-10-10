@@ -214,6 +214,7 @@ export class FooterPanel {
   }
 
   toggleHistoryPanel() {
+    console.log('togglePanel');
     this.historyPanelElm.classList.toggle("panel--show");
     this.historyButtonElm.classList.toggle("footer__icon--active");
     this.historySubtitleElm.classList.toggle("footer__icon-subtitle--active");
